@@ -61,7 +61,7 @@ const config: ExpoConfig = {
   },
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'com.enmanuelmag.rn-challenge',
+    bundleIdentifier: 'dev.cardor.enmanuelmag.rn-challenge',
     googleServicesFile: './keys/GoogleService-Info.plist',
   },
   android: {
@@ -69,7 +69,7 @@ const config: ExpoConfig = {
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
-    package: 'dev.cardor.enmanuelmag.rn_challenge',
+    package: 'dev.cardor.enmanuelmag.rn-challenge',
     googleServicesFile: './keys/google-services.json',
   },
   experiments: {
