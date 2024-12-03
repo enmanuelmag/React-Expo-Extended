@@ -49,7 +49,7 @@ const config: ExpoConfig = {
       'expo-notifications',
       {
         color: '#FFFFFF',
-        icon: './assets/icon.png',
+        icon: './assets/images/icon.png',
         defaultChannel: 'default',
       },
     ],
