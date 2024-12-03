@@ -1,0 +1,24 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["*"],
+      "@modules/*": ["modules/*"],
+      "@api/*": ["api/*"],
+      "@config/*": ["config/*"],
+      "@components/*": ["components/*"],
+      "@constants/*": ["constants/*"],
+      "@assets/*": ["assets/*"],
+      "@hooks/*": ["hooks/*"],
+      "@model/*": ["model/*"],
+      "@store/*": ["store/*"],
+      "@customTypes/*": ["types/*"],
+      "@utils/*": ["utils/*"],
+      "@datasource/*": ["api/datasource/*"]
+    }
+  },
+  "exclude": ["android", "ios"]
+  //"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+}
