@@ -1,8 +1,8 @@
 export const Routes = {
-  // Auth
+  // Auth (Public)
   LOGIN: '/login',
   REGISTER: '/register',
   // Private
-  //Public
-  HOME: '/',
+  HOME: '/home',
+  DETAIL: '/detail',
 };
