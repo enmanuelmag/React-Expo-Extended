@@ -1,4 +1,4 @@
-import { CACHED_TIME } from '@constants/app';
+//import { CACHED_TIME } from '@constants/app';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
@@ -11,7 +11,8 @@ const queryClient = new QueryClient({
 queryClient.setDefaultOptions({
   queries: {
     retry: 2,
-    gcTime: CACHED_TIME,
+    staleTime: 0, //CACHED_TIME,
+    gcTime: 0, //CACHED_TIME,
     networkMode: 'always',
     refetchOnMount: false,
     refetchOnReconnect: false,

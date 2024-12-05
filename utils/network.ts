@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { focusManager, UseQueryResult } from '@tanstack/react-query';
+import {
+  focusManager,
+  InfiniteData,
+  UseInfiniteQueryResult,
+  UseQueryResult,
+} from '@tanstack/react-query';
 import { AppStateStatus, Platform } from 'react-native';
 
 export function onAppStateChange(status: AppStateStatus) {
@@ -10,6 +15,20 @@ export function onAppStateChange(status: AppStateStatus) {
 
 export const isLoadingQuery = (...results: UseQueryResult[]) => {
   return results.some((r) => r.isLoading);
+};
+
+export const isLoadingNextPageQuery = (...results: UseInfiniteQueryResult[]) => {
+  return results.some((r) => r.isFetchingNextPage);
+};
+
+export const isResultOnPages = (...results: UseInfiniteQueryResult<InfiniteData<any>>[]) => {
+  return results.some((r) => r.isSuccess && r.data.pages.length > 0);
+};
+
+export const flatResultPages = <T>(results: UseInfiniteQueryResult<InfiniteData<T>>) => {
+  if (!results.data?.pages) return [];
+
+  return results.data.pages.flatMap((p) => p);
 };
 
 export const isLoadingRefetchQuery = (...results: UseQueryResult[]) => {

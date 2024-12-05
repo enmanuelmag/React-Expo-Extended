@@ -1,5 +1,6 @@
 import DataDS from '@api/domain/ds/DataDS';
 import DataRepo from '@api/domain/repo/DataRepo';
+import { GetPokemonBaseParamsType, GetPokemonParamsType } from '@customTypes/pokemon';
 
 class DataRepoImpl extends DataRepo {
   constructor(private db: DataDS) {
@@ -61,6 +62,16 @@ class DataRepoImpl extends DataRepo {
 
   async deleteAccount() {
     await this.db.deleteAccount();
+  }
+
+  async getPokemonsBase(params: GetPokemonBaseParamsType) {
+    const data = await this.db.getPokemonsBase(params);
+    return data;
+  }
+
+  async getPokemonDetail(params: GetPokemonParamsType) {
+    const data = await this.db.getPokemonDetail(params);
+    return data;
   }
 }
 

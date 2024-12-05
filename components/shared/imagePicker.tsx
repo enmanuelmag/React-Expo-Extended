@@ -9,7 +9,7 @@ import { blurhash } from '@constants/image';
 
 import ButtonCustom, { colorsStyles } from './button';
 import ActionIcon from './actionIcon';
-import { usePickImage } from '@/hooks/usePickImage';
+import { usePickImage } from '@hooks/usePickImage';
 
 type ImagePickerProps = {
   classes?: string;

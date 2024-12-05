@@ -3,6 +3,8 @@ export const Routes = {
   LOGIN: '/login',
   REGISTER: '/register',
   // Private
-  HOME: '/home',
-  DETAIL: '/detail',
+  POKEDEX: '/pokedex',
+  SETTINGS: '/settings',
+  TEAM: '/team',
+  DETAIL: '/detail/:id',
 };

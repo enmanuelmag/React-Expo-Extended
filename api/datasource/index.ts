@@ -1,4 +1,4 @@
-import FirebaseDS from '@api/impl/ds/FirebaseDS';
+import FirebaseDS from '@api/impl/ds/ExternalDS';
 
 import DataRepoImpl from '@api/impl/repo/DataRepoImpl';
 

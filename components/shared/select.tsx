@@ -13,7 +13,7 @@ import {
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
 
 import { UI } from '@constants/app';
-import { $ } from '@/utils/styles';
+import { $ } from '@utils/styles';
 
 export type ItemSelect = {
   id: string;

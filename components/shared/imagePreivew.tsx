@@ -1,13 +1,16 @@
 import React from 'react';
+import { View } from 'tamagui';
 import * as Burnt from 'burnt';
 import { Image } from 'expo-image';
-import { View } from 'tamagui';
-import { blurhash } from '@constants/image';
 import * as Sharing from 'expo-sharing';
-import ActionIcon from './actionIcon';
 import { Share } from '@tamagui/lucide-icons';
-import { getMimeType } from '@utils/charge';
-import DataRepo from '@api/datasource';
+
+//import DataRepo from '@api/datasource';
+
+//import { getMimeType } from '@utils/image';
+import { blurhash } from '@constants/image';
+
+import ActionIcon from './actionIcon';
 import Loader from './loader';
 
 type ImagePreviewProps = {
@@ -17,7 +20,7 @@ type ImagePreviewProps = {
 };
 
 const ImagePreview = (props: ImagePreviewProps) => {
-  const { url, description, paymentId } = props;
+  const { url } = props;
 
   const [loading, setLoading] = React.useState(false);
 
@@ -45,28 +48,25 @@ const ImagePreview = (props: ImagePreviewProps) => {
     const isAvailable = await Sharing.isAvailableAsync();
 
     if (isAvailable) {
-      try {
-        const mimeType = getMimeType(url);
-
-        const uriShareable = await DataRepo.getFilefromURL({
-          fileName: `${description}.${mimeType.replace('image/', '')}`,
-          paymentId,
-          mimeType,
-        });
-
-        await Sharing.shareAsync(uriShareable.uri, {
-          dialogTitle: 'Share this image',
-          mimeType: uriShareable.mimeType,
-        });
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-
-        Burnt.toast({
-          preset: 'error',
-          title: 'Error sharing image',
-        });
-      }
+      // try {
+      //   const mimeType = getMimeType(url);
+      //   const uriShareable = await DataRepo.getFilefromURL({
+      //     fileName: `${description}.${mimeType.replace('image/', '')}`,
+      //     paymentId,
+      //     mimeType,
+      //   });
+      //   await Sharing.shareAsync(uriShareable.uri, {
+      //     dialogTitle: 'Share this image',
+      //     mimeType: uriShareable.mimeType,
+      //   });
+      //   setLoading(false);
+      // } catch (error) {
+      //   setLoading(false);
+      //   Burnt.toast({
+      //     preset: 'error',
+      //     title: 'Error sharing image',
+      //   });
+      // }
     } else {
       setLoading(false);
 

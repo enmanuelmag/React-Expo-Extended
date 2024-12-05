@@ -1,6 +1,10 @@
 import { formatNumber } from 'react-native-currency-input';
 
-export const capitalize = (s: string, onlyFirst = false) => {
+export const capitalize = (s?: string | null, onlyFirst = false) => {
+  if (!s) {
+    return '';
+  }
+
   if (onlyFirst) {
     return s.charAt(0).toUpperCase() + s.slice(1);
   }

@@ -8,12 +8,12 @@ import { useAppStore } from '@store/index';
 SplashScreen.preventAutoHideAsync();
 
 export default function Page() {
-  const { user } = useAppStore();
+  const { user, tabSelected } = useAppStore();
 
   if (user) {
     return (
       <YStack justifyContent="center">
-        <Redirect href={Routes.HOME} />
+        <Redirect href={tabSelected ?? Routes.POKEDEX} />
       </YStack>
     );
   }

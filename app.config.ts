@@ -6,7 +6,7 @@ import { ExpoConfig } from 'expo/config';
 
 const config: ExpoConfig = {
   name: 'RN Challenge',
-  slug: 'dev.cardor.enmanuelmag.rn-challenge',
+  slug: 'dev.cardor.enmanuelmag.slug',
   version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/images/icon.png',
@@ -45,14 +45,14 @@ const config: ExpoConfig = {
           'Allow Budgetfy to access your photos to attach images to debtor payments',
       },
     ],
-    [
-      'expo-notifications',
-      {
-        color: '#FFFFFF',
-        icon: './assets/images/icon.png',
-        defaultChannel: 'default',
-      },
-    ],
+    // [
+    //   'expo-notifications',
+    //   {
+    //     color: '#FFFFFF',
+    //     icon: './assets/images/icon.png',
+    //     defaultChannel: 'default',
+    //   },
+    // ],
   ],
   splash: {
     image: './assets/images/splash.png',
@@ -61,17 +61,30 @@ const config: ExpoConfig = {
   },
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'dev.cardor.enmanuelmag.rn-challenge',
+    bundleIdentifier: 'dev.cardor.enmanuelmag.slug',
     googleServicesFile: './keys/GoogleService-Info.plist',
+    entitlements: {
+      'aps-environment': 'production',
+    },
   },
   android: {
+    icon: './assets/images/icon.png',
+    splash: {
+      image: './assets/images/splash.png',
+      resizeMode: 'contain',
+      backgroundColor: '#000000',
+    },
+    permissions: ['android.permission.POST_NOTIFICATIONS'],
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
-    package: 'dev.cardor.enmanuelmag.rn-challenge',
+    backgroundColor: '#FFFFFF',
+    package: 'dev.cardor.enmanuelmag.slug',
     googleServicesFile: './keys/google-services.json',
   },
+  platforms: ['ios', 'android'],
+  owner: 'enmanuelmag',
   experiments: {
     typedRoutes: false,
   },

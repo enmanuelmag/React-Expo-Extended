@@ -83,6 +83,14 @@ export const ErrorCodes = {
     code: 'ERROR_LOGOUT',
     message: 'Error logout',
   },
+  ERROR_GETTING_POKEMONS: {
+    code: 'ERROR_GETTING_POKEMONS',
+    message: 'Error getting pokemons',
+  },
+  ERROR_GETTING_POKEMON_DETAIL: {
+    code: 'ERROR_GETTING_POKEMON_DETAIL',
+    message: 'Error getting pokemon detail',
+  },
 };
 
 export class ErrorService extends Error {

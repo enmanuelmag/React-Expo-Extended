@@ -4,7 +4,6 @@ import tamaguiConfig from '@config/theme';
 import * as SystemUI from 'expo-system-ui';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
-import * as Notifications from 'expo-notifications';
 import { SplashScreen, Slot, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TamaguiProvider, Theme, PortalProvider } from 'tamagui';
@@ -19,18 +18,10 @@ import { Routes } from '@constants/routes';
 
 const Provider = process.env.EXPO_PUBLIC_IS_DEV ? QueryClientProvider : PersistQueryClientProvider;
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
-
 SplashScreen.preventAutoHideAsync();
 
 export default function Page() {
-  const { user, usedSystemTheme, theme, setTheme, setUsedSystemTheme } = useAppStore();
+  const { user, usedSystemTheme, tabSelected, theme, setTheme, setUsedSystemTheme } = useAppStore();
 
   const { colorScheme, setColorScheme } = useColorScheme();
 
@@ -39,8 +30,9 @@ export default function Page() {
     if (!user) {
       router.push(Routes.LOGIN);
     } else {
-      router.push(Routes.HOME);
+      router.push(tabSelected ?? Routes.POKEDEX);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   React.useEffect(() => {

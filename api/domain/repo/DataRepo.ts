@@ -1,3 +1,9 @@
+import {
+  GetPokemonBaseParamsType,
+  GetPokemonParamsType,
+  PokemonApiResponse,
+  PokemonDetailType,
+} from '@customTypes/pokemon';
 import { UserType } from '@customTypes/user';
 
 abstract class DataRepo {
@@ -24,6 +30,10 @@ abstract class DataRepo {
   abstract logout(): Promise<void>;
 
   abstract deleteAccount(): Promise<void>;
+
+  abstract getPokemonsBase(params: GetPokemonBaseParamsType): Promise<PokemonApiResponse>;
+
+  abstract getPokemonDetail(name: GetPokemonParamsType): Promise<PokemonDetailType>;
 }
 
 export default DataRepo;

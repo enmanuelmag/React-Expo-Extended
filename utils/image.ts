@@ -3,6 +3,24 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { Logger } from '@utils/log';
 
+export const getMimeType = (uri: string) => {
+  const extension = uri.split('.').at(-1) || 'jpeg';
+
+  switch (extension) {
+    case 'jpeg':
+    case 'jpg':
+      return 'image/jpeg';
+    case 'png':
+      return 'image/png';
+    case 'gif':
+      return 'image/gif';
+    case 'webp':
+      return 'image/webp';
+    default:
+      return 'image/jpeg';
+  }
+};
+
 export const getBase64String = (base64: string, mimeType: string = 'image/jpeg') =>
   `data:${mimeType};base64,${base64}`;
 
