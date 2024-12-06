@@ -40,7 +40,7 @@ const CatchTeam = () => {
     },
     getNextPageParam: (lastPage) => parseOffset(lastPage.next),
     queryFn: ({ pageParam }) =>
-      DataRepo.getPokemonsBase({
+      DataRepo.pokeService.getPokemonsBase({
         offset: pageParam.offset ?? 0,
         limit: pageParam.limit ?? 10,
       }),

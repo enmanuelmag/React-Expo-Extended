@@ -1,13 +1,6 @@
 import { UserType } from '@customTypes/user';
 
-import {
-  GetPokemonBaseParamsType,
-  GetPokemonParamsType,
-  PokemonApiResponse,
-  PokemonDetailType,
-} from '@customTypes/pokemon';
-
-abstract class DataDS {
+abstract class UserDS {
   abstract signinWithEmailAndPassword(email: string, password: string): Promise<UserType>;
 
   abstract signinWithGoogle(): Promise<UserType>;
@@ -30,11 +23,11 @@ abstract class DataDS {
 
   abstract logout(): Promise<void>;
 
+  abstract registerToken(token: string): Promise<void>;
+
+  abstract unregisterToken(): Promise<void>;
+
   abstract deleteAccount(): Promise<void>;
-
-  abstract getPokemonsBase(params: GetPokemonBaseParamsType): Promise<PokemonApiResponse>;
-
-  abstract getPokemonDetail(name: GetPokemonParamsType): Promise<PokemonDetailType>;
 }
 
-export default DataDS;
+export default UserDS;

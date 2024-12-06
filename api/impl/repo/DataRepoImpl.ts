@@ -1,77 +1,22 @@
-import DataDS from '@api/domain/ds/DataDS';
 import DataRepo from '@api/domain/repo/DataRepo';
-import { GetPokemonBaseParamsType, GetPokemonParamsType } from '@customTypes/pokemon';
+
+import PokeDS from '@api/domain/ds/PokeDS';
+import UserDS from '@api/domain/ds/UserDS';
+
+type ConstructorType = {
+  userService: UserDS;
+  pokeService: PokeDS;
+};
 
 class DataRepoImpl extends DataRepo {
-  constructor(private db: DataDS) {
+  userService: UserDS;
+  pokeService: PokeDS;
+
+  constructor(params: ConstructorType) {
     super();
-  }
 
-  async getUser() {
-    const data = await this.db.getUser();
-    return data;
-  }
-
-  async signinWithEmailAndPassword(email: string, password: string) {
-    const data = await this.db.signinWithEmailAndPassword(email, password);
-    return data;
-  }
-
-  async signinWithGoogle() {
-    const data = await this.db.signinWithGoogle();
-    return data;
-  }
-
-  async signinWithApple() {
-    const data = await this.db.signinWithApple();
-    return data;
-  }
-
-  async signinAnonymously() {
-    const data = await this.db.signinAnonymously();
-    return data;
-  }
-
-  async signUpWithEmailAndPassword(email: string, password: string) {
-    const data = await this.db.signUpWithEmailAndPassword(email, password);
-    return data;
-  }
-
-  async signInWithLocalAuth() {
-    const data = await this.db.signInWithLocalAuth();
-    return data;
-  }
-
-  async checkBiometric() {
-    const data = await this.db.checkBiometric();
-    return data;
-  }
-
-  async setCheckBiometric(value: boolean) {
-    return await this.db.setCheckBiometric(value);
-  }
-
-  async getCheckBiometric() {
-    const data = await this.db.getCheckBiometric();
-    return data;
-  }
-
-  async logout() {
-    await this.db.logout();
-  }
-
-  async deleteAccount() {
-    await this.db.deleteAccount();
-  }
-
-  async getPokemonsBase(params: GetPokemonBaseParamsType) {
-    const data = await this.db.getPokemonsBase(params);
-    return data;
-  }
-
-  async getPokemonDetail(params: GetPokemonParamsType) {
-    const data = await this.db.getPokemonDetail(params);
-    return data;
+    this.userService = params.userService;
+    this.pokeService = params.pokeService;
   }
 }
 

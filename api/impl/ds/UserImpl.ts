@@ -13,7 +13,7 @@ type FirebaseError = ReactNativeFirebase.NativeFirebaseError;
 
 import type { UserType } from '@customTypes/user';
 
-import DataDS from '@api/domain/ds/DataDS';
+import UserDS from '@api/domain/ds/UserDS';
 
 import { Logger } from '@utils/log';
 import { ErrorCodes, ErrorService } from '@utils/errors';
@@ -30,13 +30,6 @@ import {
   SECRET_PASSWORD,
   CHECK_BIOMETRIC,
 } from '@constants/datasource';
-import { POKEMON_API } from '@constants/app';
-import {
-  GetPokemonBaseParamsType,
-  GetPokemonParamsType,
-  PokemonApiResponse,
-  PokemonDetailType,
-} from '@customTypes/pokemon';
 
 const ConfigCredentials = {
   firebaseProviders: {
@@ -46,7 +39,7 @@ const ConfigCredentials = {
 
 const CACHE_SIZE_BYTES = 512 * 1024 * 1024;
 
-class ExternalDS extends DataDS {
+class UserImpl extends UserDS {
   constructor() {
     super();
     firestore().settings({
@@ -393,48 +386,49 @@ class ExternalDS extends DataDS {
     }
   }
 
-  //Pokemon
-  async getPokemonsBase(params: GetPokemonBaseParamsType) {
+  async registerToken(token: string) {
     try {
-      const { limit = 10, offset = 0 } = params;
+      const user = await this.getUser();
 
-      const url = new URL(POKEMON_API);
+      if (!user) {
+        Logger.error('User not found');
+        throw ErrorService.getErrorFromCode(ErrorCodes.ERROR_GETTING_USER);
+      }
 
-      url.pathname = '/api/v2/pokemon';
-      url.searchParams.append('limit', limit.toString());
-      url.searchParams.append('offset', offset.toString());
+      if (!user.metadata) {
+        user.metadata = {};
+      }
 
-      const pokemons = await fetch(url);
+      user.metadata.pushToken = token;
 
-      const pokemonsJSON = (await pokemons.json()) as PokemonApiResponse;
-
-      return pokemonsJSON;
+      await firestore().collection(USERS_COLLECTION).doc(user.uid).set(user, { merge: true });
     } catch (error) {
-      Logger.error('Error getting pokemons', error);
-      throw ErrorService.getErrorFromCode(ErrorCodes.ERROR_GETTING_POKEMONS);
+      Logger.error('Error registering token', error);
+      throw ErrorService.getErrorFromCode(ErrorCodes.ERROR_REGISTERING_TOKEN);
     }
   }
 
-  async getPokemonDetail(params: GetPokemonParamsType) {
+  async unregisterToken() {
     try {
-      const { id } = params;
+      const user = await this.getUser();
 
-      const url = new URL(POKEMON_API);
+      if (!user) {
+        Logger.error('User not found');
+        throw ErrorService.getErrorFromCode(ErrorCodes.ERROR_GETTING_USER);
+      }
 
-      url.pathname = `/api/v2/pokemon/${id}`;
+      const data = {
+        metadata: {
+          pushToken: firestore.FieldValue.delete(),
+        },
+      };
 
-      const pokemon = await fetch(url.toString());
-
-      const pokemonJSON = (await pokemon.json()) as PokemonDetailType;
-
-      pokemonJSON.stats = pokemonJSON.stats.sort((a, b) => b.base_stat - a.base_stat);
-
-      return pokemonJSON;
+      await firestore().collection(USERS_COLLECTION).doc(user.uid).set(data, { merge: true });
     } catch (error) {
-      Logger.error('Error getting pokemon detail', error);
-      throw ErrorService.getErrorFromCode(ErrorCodes.ERROR_GETTING_POKEMON_DETAIL);
+      Logger.error('Error unregistering token', error);
+      throw ErrorService.getErrorFromCode(ErrorCodes.ERROR_REGISTERING_TOKEN);
     }
   }
 }
 
-export default ExternalDS;
+export default UserImpl;

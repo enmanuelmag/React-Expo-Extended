@@ -6,7 +6,7 @@ export const UserSchema = z.object({
   displayName: z.string().optional().nullable(),
   type: z.enum(['email', 'google', 'anonymous', 'apple']),
   metadata: z.object({
-    alreadyDefaultCategories: z.boolean().nullable().optional(),
+    pushToken: z.string().optional().nullable(),
   }),
 });
 

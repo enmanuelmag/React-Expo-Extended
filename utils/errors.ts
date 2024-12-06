@@ -91,6 +91,14 @@ export const ErrorCodes = {
     code: 'ERROR_GETTING_POKEMON_DETAIL',
     message: 'Error getting pokemon detail',
   },
+  ERROR_REGISTERING_TOKEN: {
+    code: 'ERROR_REGISTERING_TOKEN',
+    message: 'Error registering token',
+  },
+  ERROR_UNREGISTERING_TOKEN: {
+    code: 'ERROR_UNREGISTERING_TOKEN',
+    message: 'Error unregistering token',
+  },
 };
 
 export class ErrorService extends Error {

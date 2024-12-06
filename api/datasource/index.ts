@@ -1,9 +1,15 @@
-import FirebaseDS from '@api/impl/ds/ExternalDS';
+import PokeImpl from '@api/impl/ds/PokeImpl';
+import UserImpl from '@api/impl/ds/UserImpl';
 
 import DataRepoImpl from '@api/impl/repo/DataRepoImpl';
 
-const firebaseDS = new FirebaseDS();
+const pokeDS = new PokeImpl();
 
-const DataRepo = new DataRepoImpl(firebaseDS);
+const userDS = new UserImpl();
+
+const DataRepo = new DataRepoImpl({
+  pokeService: pokeDS,
+  userService: userDS,
+});
 
 export default DataRepo;

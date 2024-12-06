@@ -27,7 +27,7 @@ const Register = () => {
     networkMode: 'always',
     mutationKey: [QKeys.REGISTER_GOOGLE_KEY],
     mutationFn: async () => {
-      const response = await DataRepo.signinWithGoogle();
+      const response = await DataRepo.userService.signinWithGoogle();
       queryClient.clear();
       clear();
       return response;

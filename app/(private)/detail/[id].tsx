@@ -42,7 +42,7 @@ const DetailScreen = () => {
       queryKey: [QKeys.GET_POKEMON_DETAIL_KEY, id],
       queryFn: async ({ queryKey }) => {
         const [, idParam] = queryKey;
-        const budget = await DataRepo.getPokemonDetail({ id: idParam });
+        const budget = await DataRepo.pokeService.getPokemonDetail({ id: idParam });
         return budget;
       },
     },

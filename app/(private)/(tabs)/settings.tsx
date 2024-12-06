@@ -49,7 +49,7 @@ const Settings = () => {
           text="Logout"
           variant="outline"
           onPress={() => {
-            DataRepo.logout().finally(() => {
+            DataRepo.userService.logout().finally(() => {
               router.replace(Routes.LOGIN);
               queryClient.clear();
               clear();
