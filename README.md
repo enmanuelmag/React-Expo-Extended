@@ -19,6 +19,9 @@ Requirements:
 
 This current project use the slug/package/bundleId of `dev.cardor.enmanuelmag.rn_challenge`. Remember to change it to your own package name and *generate your own keys* of `google-services.json` and `GoogleService-Info.plist` for android and iOS respectively.
 
+This template has installed firebase cloud messaging. This allows to send push notifications to the app. But if you need to send local notifications, you can use the `expo-notifications` package BUT remember remove the `@react-native-firebase/messaging`. Because both packages can't coexist in the same project.
+
+
 > For android you have to have an emulator and at least API 30 installed, recommended to use Android Studio to create the virtual device and install the API 30 and SDK required
 > You can see the instructions [here](https://docs.expo.dev/get-started/set-up-your-environment/?mode=development-build&buildEnv=local#set-up-android-studio)
 
