@@ -15,6 +15,10 @@ Requirements:
 - Android API 30 or higher
 - SDK Tools
 
+## Firebase setup
+
+This current project use the slug/package/bundleId of `dev.cardor.enmanuelmag.rn_challenge`. Remember to change it to your own package name and *generate your own keys* of `google-services.json` and `GoogleService-Info.plist` for android and iOS respectively.
+
 > For android you have to have an emulator and at least API 30 installed, recommended to use Android Studio to create the virtual device and install the API 30 and SDK required
 > You can see the instructions [here](https://docs.expo.dev/get-started/set-up-your-environment/?mode=development-build&buildEnv=local#set-up-android-studio)
 

@@ -6,7 +6,7 @@ import { ExpoConfig } from 'expo/config';
 
 const config: ExpoConfig = {
   name: 'RN Challenge',
-  slug: 'dev.cardor.enmanuelmag.slug',
+  slug: 'dev.cardor.enmanuelmag.rn_challenge',
   version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/images/icon.png',
@@ -61,7 +61,7 @@ const config: ExpoConfig = {
   },
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'dev.cardor.enmanuelmag.slug',
+    bundleIdentifier: 'dev.cardor.enmanuelmag.rn-challenge',
     googleServicesFile: './keys/GoogleService-Info.plist',
     entitlements: {
       'aps-environment': 'production',
@@ -80,7 +80,7 @@ const config: ExpoConfig = {
       backgroundColor: '#ffffff',
     },
     backgroundColor: '#FFFFFF',
-    package: 'dev.cardor.enmanuelmag.slug',
+    package: 'dev.cardor.enmanuelmag.rn_challenge',
     googleServicesFile: './keys/google-services.json',
   },
   platforms: ['ios', 'android'],
