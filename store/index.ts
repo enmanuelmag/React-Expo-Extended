@@ -14,6 +14,7 @@ type UserSlice = {
   user: UserType | null;
   theme: ThemeOptions;
   usedSystemTheme: boolean;
+  pushToken?: string | null;
   popOverNotification?: NotificationForegroundType | null;
 };
 
@@ -24,6 +25,7 @@ type UserSliceActions = {
   setTheme: (theme: ThemeOptions) => void;
   setUsedSystemTheme: (usedSystemTheme: boolean) => void;
   setTabSelected: (tabSelected: UserSlice['tabSelected']) => void;
+  setPushToken: (pushToken: string | null) => void;
   setPopOverNotification: (popOverNotification: NotificationForegroundType | null) => void;
 };
 
@@ -45,6 +47,7 @@ const initialUserSlice: UserSlice = {
   theme: 'light',
   tabSelected: 'pokedex',
   usedSystemTheme: false,
+  pushToken: null,
   popOverNotification: null,
 };
 
@@ -63,6 +66,7 @@ export const useAppStore = create(
       setTheme: (theme) => set({ theme }),
       setUsedSystemTheme: (usedSystemTheme) => set({ usedSystemTheme }),
       setTabSelected: (tabSelected) => set({ tabSelected }),
+      setPushToken: (pushToken) => set({ pushToken }),
       setPopOverNotification: (popOverNotification) => set({ popOverNotification }),
       //TeamSlice Actions
       addPokemon: (pokemon) => set((state) => ({ team: [pokemon, ...state.team] })),

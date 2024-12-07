@@ -15,7 +15,7 @@ import { Routes } from '@constants/routes';
 import { router } from 'expo-router';
 
 export default function Layout() {
-  const { popOverNotification, setPopOverNotification } = useAppStore();
+  const { popOverNotification, setPushToken, setPopOverNotification } = useAppStore();
 
   const { colorScheme } = useColorScheme();
 
@@ -29,7 +29,8 @@ export default function Layout() {
 
   React.useEffect(() => {
     const unsubscribe = setupNotifications({
-      setPopover: setPopOverNotification,
+      setPopOverNotification,
+      setPushToken,
     });
 
     return () => {

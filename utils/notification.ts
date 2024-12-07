@@ -3,6 +3,7 @@ import messaging from '@react-native-firebase/messaging';
 import { NotificationDataType, NotificationForegroundType } from '@customTypes/notification';
 import { router } from 'expo-router';
 import { Routes } from '@constants/routes';
+import DataRepo from '@api/datasource';
 
 export async function requestUserPermission() {
   if (Platform.OS === 'ios') {
@@ -20,15 +21,17 @@ export async function requestUserPermission() {
 }
 
 type SetupNotificationsParams = {
-  setPopover: (popover: NotificationForegroundType) => void;
+  setPopOverNotification: (popover: NotificationForegroundType) => void;
+  setPushToken: (token: string | null) => void;
 };
 
 export const setupNotifications = (params: SetupNotificationsParams) => {
   try {
+    const { setPushToken, setPopOverNotification } = params;
     // Foreground message handler
     const messageUnsubscribe = messaging().onMessage(async (remoteMessage) => {
       console.log('Foreground Message:', remoteMessage);
-      params.setPopover({
+      setPopOverNotification({
         title: remoteMessage.notification?.title ?? 'New Pokemon found!',
         body: remoteMessage.notification?.body ?? 'Let see it',
         data: remoteMessage.data as NotificationDataType,
@@ -64,7 +67,8 @@ export const setupNotifications = (params: SetupNotificationsParams) => {
 
     // Request permissions (will be handled by the native module)
     requestUserPermission();
-    getFCMToken();
+
+    getFCMToken().then(setPushToken);
 
     // Return cleanup function
     return () => {
@@ -81,6 +85,8 @@ export const getFCMToken = async () => {
   try {
     const token = await messaging().getToken();
     console.log('FCM Token:', token);
+
+    await DataRepo.userService.registerToken(token);
     return token;
   } catch (error) {
     console.error('Error getting FCM token:', error);
@@ -92,7 +98,29 @@ export const unregisterFCMToken = async () => {
   try {
     await messaging().deleteToken();
     console.log('FCM Token deleted successfully');
+
+    await DataRepo.userService.unregisterToken();
   } catch (error) {
     console.error('Error deleting FCM token:', error);
+  }
+};
+
+type SendPushNotificationParams = {
+  data: NotificationDataType & { title: string; description: string };
+  pushToken: string;
+};
+
+export const sendPushNotification = async (params: SendPushNotificationParams) => {
+  try {
+    console.log('Sending push notification:', params);
+    const { data, pushToken } = params;
+    await messaging().sendMessage({
+      fcmOptions: {},
+      to: pushToken,
+      data,
+    });
+    console.log('Push notification sent successfully');
+  } catch (error) {
+    console.error('Error sending push notification:', error);
   }
 };
