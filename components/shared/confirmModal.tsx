@@ -3,13 +3,15 @@ import React from 'react';
 import { X } from '@tamagui/lucide-icons';
 import { Adapt, Button, Dialog, Separator, Sheet, Text, Unspaced, XStack } from 'tamagui';
 
-import ButtonCustom, { colorsStyles } from './button';
+import { ColorsTheme } from '@constants/Colors';
+
+import ButtonCustom from './button';
 
 type ConfirmEventProps = {
   title: string;
   content: string | React.ReactNode;
   children?: React.ReactNode;
-  confirmColor?: keyof typeof colorsStyles;
+  confirmColor?: keyof (typeof ColorsTheme)['light'];
   confirmText: string;
   onConfirm: () => void;
   closeText: string;
@@ -107,17 +109,11 @@ const ConfirmModal = React.forwardRef<any, ConfirmEventProps>((props: ConfirmEve
                 aria-label="Close"
                 color={confirmColor ?? 'red'}
                 text={confirmText}
-                variant="secondary"
                 onPress={onConfirm}
               />
             </Dialog.Close>
             <Dialog.Close asChild displayWhenAdapted>
-              <ButtonCustom
-                aria-label="Close"
-                text={closeText}
-                variant="secondary"
-                onPress={onClose}
-              />
+              <ButtonCustom aria-label="Close" text={closeText} onPress={onClose} />
             </Dialog.Close>
           </XStack>
 

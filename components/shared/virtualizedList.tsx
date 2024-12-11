@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
 import React from 'react';
 import { AnimatePresence, View } from 'tamagui';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,12 +8,12 @@ import { getScrollGradient } from '@utils/platform';
 import { $ } from '@utils/styles';
 import { useColorScheme } from 'nativewind';
 
-type VirtualizedListProps = {
-  items: any[];
+type VirtualizedListProps<T> = {
+  items: T[];
   classes?: string;
   bottomGradientClass?: string;
   initialNumToRender?: number;
-  renderItem: (props: { item: any; index: number }) => React.ReactElement;
+  renderItem: (props: { item: T; index: number }) => React.ReactElement;
 };
 
 type GradientType = {
@@ -21,7 +21,7 @@ type GradientType = {
   bottom: boolean;
 };
 
-const VirtualizedList = (props: VirtualizedListProps) => {
+const VirtualizedList = <T extends unknown>(props: VirtualizedListProps<T>) => {
   const { items, initialNumToRender = 3, renderItem, classes } = props;
 
   const { colorScheme } = useColorScheme();
@@ -41,7 +41,14 @@ const VirtualizedList = (props: VirtualizedListProps) => {
           getItemCount={(data) => data.length}
           initialNumToRender={initialNumToRender}
           keyExtractor={(_, idx) => `schedule-${idx}`}
-          renderItem={renderItem}
+          renderItem={({ item, index }) => (
+            <View
+              className={$(index === items.length - 1 ? 'cd-mb-[256]' : 'cd-mb-[8]')}
+              key={index}
+            >
+              {renderItem({ item, index })}
+            </View>
+          )}
           showsVerticalScrollIndicator={false}
           onScroll={(e) => setGradientType(getScrollGradient(e.nativeEvent.contentOffset.y))}
         />

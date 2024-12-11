@@ -3,7 +3,7 @@ import React from 'react';
 import { TamaguiElement, Text, View, XStack } from 'tamagui';
 
 import { $ } from '@utils/styles';
-import { Colors } from '@constants/budget';
+import { Colors } from '@constants/Colors';
 
 type ChipProps = {
   classes?: string;

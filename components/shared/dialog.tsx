@@ -1,7 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import { AlertDialog as AlertTama, Text, XStack, YStack } from 'tamagui';
-import ButtonCustom, { colorsStyles } from './button';
 import React from 'react';
+import { AlertDialog as AlertTama, Text, XStack, YStack } from 'tamagui';
+
+import { ColorsTheme } from '@constants/Colors';
+
+import ButtonCustom from './button';
 
 type AlertTamaProps = {
   open?: boolean;
@@ -9,9 +12,9 @@ type AlertTamaProps = {
   children?: React.ReactNode;
   content: string | React.ReactNode;
   textConfirm: string;
-  colorConfirm?: keyof typeof colorsStyles;
+  colorConfirm?: keyof (typeof ColorsTheme)['light'];
   textCancel: string;
-  colorCancel?: keyof typeof colorsStyles;
+  colorCancel?: keyof (typeof ColorsTheme)['light'];
   onConfirm: () => void;
   onCancel: () => void;
   onOpenChange?: (boolean: boolean) => void;
@@ -84,7 +87,6 @@ export function AlertDialog(props: AlertTamaProps) {
                   aria-label="Close"
                   color={colorCancel ?? 'red'}
                   text={textCancel}
-                  variant="secondary"
                   onPress={onCancel}
                 />
               </AlertTama.Cancel>
@@ -93,7 +95,6 @@ export function AlertDialog(props: AlertTamaProps) {
                   aria-label="Confirm"
                   color={colorConfirm ?? 'green'}
                   text={textConfirm}
-                  variant="secondary"
                   onPress={onConfirm}
                 />
               </AlertTama.Action>

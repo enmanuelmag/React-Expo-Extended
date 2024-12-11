@@ -4,15 +4,17 @@ import { StyleSheet } from 'react-native';
 
 import { $ } from '@utils/styles';
 
-import ButtonCustom, { colorsStyles, variantStyles } from './button';
+import { ColorsTheme } from '@constants/Colors';
+
+import ButtonCustom from './button';
 
 type ActionIconProps = {
   classes?: string;
   loading?: boolean;
   disabled?: boolean;
   icon: React.ReactElement | any;
-  color?: keyof typeof colorsStyles;
-  variant?: keyof typeof variantStyles;
+  color?: keyof (typeof ColorsTheme)['light'];
+  variant?: 'default' | 'filled' | 'outline' | 'transparent' | 'icon';
   onPress?: (e: any) => void;
   onlyIcon?: boolean;
   size?: number;

@@ -193,10 +193,9 @@ const DetailScreen = () => {
           </GradientList>
           <FloatingButtons key="floating-budget">
             <ActionIcon
-              color="blue"
+              color="primary"
               disabled={team.some((p) => p.id === data?.id)}
               icon={<Plus color="white" size={22} />}
-              variant="primary"
               onPress={() => {
                 setConfirmCatch(true);
               }}
