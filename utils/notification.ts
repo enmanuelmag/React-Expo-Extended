@@ -1,22 +1,28 @@
-import { Platform, PermissionsAndroid } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
+import { Platform, PermissionsAndroid } from 'react-native';
+
+import * as Burnt from 'burnt';
+import type { BaseToastOptions } from 'burnt/build/types';
 import { NotificationDataType, NotificationForegroundType } from '@customTypes/notification';
-import { router } from 'expo-router';
-import { Routes } from '@constants/routes';
+
 import DataRepo from '@api/datasource';
+
+// import { router } from 'expo-router';
+// import { Routes } from '@constants/routes';
 
 export async function requestUserPermission() {
   if (Platform.OS === 'ios') {
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    await messaging().requestPermission();
+    // const authStatus = await messaging().requestPermission();
+    // const enabled =
+    //   authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    //   authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-    if (enabled) {
-      console.log('Authorization status:', authStatus);
-    }
+    // if (enabled) {
+    //   console.log('Authorization status:', authStatus);
+    // }
   } else {
-    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+    await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
   }
 }
 
@@ -27,7 +33,7 @@ type SetupNotificationsParams = {
 
 export const setupNotifications = (params: SetupNotificationsParams) => {
   try {
-    const { setPushToken, setPopOverNotification } = params;
+    const { setPopOverNotification } = params;
     // Foreground message handler
     const messageUnsubscribe = messaging().onMessage(async (remoteMessage) => {
       console.log('Foreground Message:', remoteMessage);
@@ -41,17 +47,17 @@ export const setupNotifications = (params: SetupNotificationsParams) => {
     // Background message handler
     messaging().setBackgroundMessageHandler(async (remoteMessage) => {
       console.log('Background Message:', remoteMessage);
-      const { pokemonId } = remoteMessage.data as NotificationDataType;
+      // const { pokemonId } = remoteMessage.data as NotificationDataType;
 
-      router.push(Routes.DETAIL.replace(':id', pokemonId));
+      // router.push(Routes.DETAIL.replace(':id', pokemonId));
     });
 
     // Handle notification open when app is in background/quit
     const notificationUnsubscribe = messaging().onNotificationOpenedApp((remoteMessage) => {
       console.log('Notification opened:', remoteMessage);
-      const { pokemonId } = remoteMessage.data as NotificationDataType;
+      // const { pokemonId } = remoteMessage.data as NotificationDataType;
 
-      router.push(Routes.DETAIL.replace(':id', pokemonId));
+      // router.push(Routes.DETAIL.replace(':id', pokemonId));
     });
 
     // Check if app was opened from a notification when app was quit
@@ -60,15 +66,13 @@ export const setupNotifications = (params: SetupNotificationsParams) => {
       .then((remoteMessage) => {
         if (remoteMessage) {
           console.log('Notification when app if quit:', remoteMessage);
-          const { pokemonId } = remoteMessage.data as NotificationDataType;
-          router.push(Routes.DETAIL.replace(':id', pokemonId));
         }
       });
 
     // Request permissions (will be handled by the native module)
     requestUserPermission();
 
-    getFCMToken().then(setPushToken);
+    //getFCMToken().then(setPushToken);
 
     // Return cleanup function
     return () => {
@@ -123,4 +127,26 @@ export const sendPushNotification = async (params: SendPushNotificationParams) =
   } catch (error) {
     console.error('Error sending push notification:', error);
   }
+};
+
+export const toast = (params: BaseToastOptions) => {
+  let haptic: BaseToastOptions['haptic'];
+
+  if (params.preset) {
+    switch (params.preset) {
+      case 'done':
+        haptic = 'success';
+        break;
+      case 'error':
+        haptic = 'error';
+        break;
+      default:
+        break;
+    }
+  }
+
+  Burnt.toast({
+    ...params,
+    haptic,
+  });
 };

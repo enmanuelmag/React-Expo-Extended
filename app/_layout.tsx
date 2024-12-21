@@ -14,9 +14,11 @@ import queryClient, { asyncStoragePersister } from '@api/datasource/query';
 
 import { useAppStore } from '@store/index';
 
+import EnvConfig from '@config/env';
+
 import { Routes } from '@constants/routes';
 
-const Provider = process.env.EXPO_PUBLIC_IS_DEV ? QueryClientProvider : PersistQueryClientProvider;
+const Provider = EnvConfig.EXPO_PUBLIC_IS_DEV ? QueryClientProvider : PersistQueryClientProvider;
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,7 +32,7 @@ export default function Page() {
     if (!user) {
       router.push(Routes.LOGIN);
     } else {
-      router.push(tabSelected ?? Routes.POKEDEX);
+      router.push(tabSelected ?? Routes.SEARCH);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);

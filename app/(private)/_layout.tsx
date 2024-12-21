@@ -22,9 +22,7 @@ export default function Layout() {
   const colorBg = getBgColor(colorScheme);
 
   const detailConfig = useStackScreenOptions({
-    headerTitle: (
-      <Text className="cd-text-primary cd-text-lg dark:cd-text-primary-dark">Detail</Text>
-    ),
+    headerTitle: <Text className="cd-text-app cd-text-lg dark:cd-text-app-dark">Detail</Text>,
   });
 
   React.useEffect(() => {

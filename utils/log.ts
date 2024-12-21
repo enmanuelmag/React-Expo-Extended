@@ -21,7 +21,21 @@ class LoggerImpl {
       }
     });
 
-    console[type](prefix.text + ' ' + texts.join(' '), ...(objects ?? []), ..._objects);
+    //show only hh:mm:ss
+    const timestamp = new Date().toLocaleTimeString('en-US', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+
+    if (process.env.EXPO_PUBLIC_IS_DEV) {
+      console[type](
+        prefix.text + ` [${timestamp}] ` + texts.join(' '),
+        ...(objects ?? []),
+        ..._objects,
+      );
+    }
   }
 
   debug(...text: any[]): void {
@@ -42,6 +56,10 @@ class LoggerImpl {
 
   error(...text: any[]): void {
     this.print('error', ['[ERROR]', ...text]);
+  }
+
+  ds(...text: any[]): void {
+    this.print('info', ['[DS]', ...text]);
   }
 }
 

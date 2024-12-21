@@ -1,39 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { AlertDialog as AlertTama, Text, XStack, YStack } from 'tamagui';
-
-import { ColorsTheme } from '@constants/Colors';
-
-import ButtonCustom from './button';
+import { AlertDialog as AlertTama, Text, YStack } from 'tamagui';
+import SeparatorCustom from './SeparatorCustom';
+import { $ } from '@utils/styles';
 
 type AlertTamaProps = {
-  open?: boolean;
-  title: string;
-  children?: React.ReactNode;
+  title?: string;
   content: string | React.ReactNode;
-  textConfirm: string;
-  colorConfirm?: keyof (typeof ColorsTheme)['light'];
-  textCancel: string;
-  colorCancel?: keyof (typeof ColorsTheme)['light'];
-  onConfirm: () => void;
-  onCancel: () => void;
+  showSeparator?: boolean;
+  children?: React.ReactNode;
+  open?: boolean;
+  width?: number | `${number}%`;
   onOpenChange?: (boolean: boolean) => void;
 };
 
 export function AlertDialog(props: AlertTamaProps) {
-  const {
-    open,
-    title,
-    content,
-    textConfirm,
-    textCancel,
-    children,
-    colorCancel,
-    colorConfirm,
-    onCancel,
-    onConfirm,
-    onOpenChange,
-  } = props;
+  const { open, title, content, children, onOpenChange, showSeparator, width } = props;
   return (
     <AlertTama open={open} onOpenChange={onOpenChange}>
       {children && <AlertTama.Trigger asChild>{children}</AlertTama.Trigger>}
@@ -60,18 +42,23 @@ export function AlertDialog(props: AlertTamaProps) {
           enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.9 }}
           exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
           key="content"
+          maxWidth="90%"
           opacity={1}
           scale={1}
+          width={width}
           x={0}
           y={0}
         >
-          <YStack gap="$3">
-            <AlertTama.Title>
-              <Text className="cd-text-lg cd-font-semibold cd-text-gray-800 dark:cd-text-gray-100">
-                {title}
-              </Text>
-            </AlertTama.Title>
-            <AlertTama.Description>
+          <YStack>
+            {title && (
+              <AlertTama.Title>
+                <Text className="cd-text-lg cd-font-semibold cd-text-gray-800 dark:cd-text-gray-100">
+                  {title}
+                </Text>
+              </AlertTama.Title>
+            )}
+            {title && showSeparator && <SeparatorCustom classes="cd-mt-[8] cd-mb-[16]" />}
+            <AlertTama.Description className={$(!showSeparator && 'cd-mt-[16]')}>
               {React.isValidElement(content) ? (
                 content
               ) : (
@@ -80,25 +67,6 @@ export function AlertDialog(props: AlertTamaProps) {
                 </Text>
               )}
             </AlertTama.Description>
-
-            <XStack gap="$3" justifyContent="flex-end">
-              <AlertTama.Cancel asChild>
-                <ButtonCustom
-                  aria-label="Close"
-                  color={colorCancel ?? 'red'}
-                  text={textCancel}
-                  onPress={onCancel}
-                />
-              </AlertTama.Cancel>
-              <AlertTama.Action asChild>
-                <ButtonCustom
-                  aria-label="Confirm"
-                  color={colorConfirm ?? 'green'}
-                  text={textConfirm}
-                  onPress={onConfirm}
-                />
-              </AlertTama.Action>
-            </XStack>
           </YStack>
         </AlertTama.Content>
       </AlertTama.Portal>

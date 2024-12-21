@@ -4,7 +4,7 @@ import * as Burnt from 'burnt';
 import { Image } from 'expo-image';
 import { Plus } from '@tamagui/lucide-icons';
 import { useQuery } from '@tanstack/react-query';
-import { Separator, Text, View, XStack, YStack } from 'tamagui';
+import { Text, View, XStack, YStack } from 'tamagui';
 import { Stack, useLocalSearchParams } from 'expo-router';
 
 import DataRepo from '@api/datasource';
@@ -28,6 +28,7 @@ import GradientList from '@components/shared/gradientList';
 import PageViewerCustom from '@components/shared/pageViewer';
 import FloatingButtons from '@components/shared/floatingButtons';
 import DismissKeyboardHOC from '@components/shared/dismissKeyboardHOC';
+import SeparatorCustom from '@components/shared/SeparatorCustom';
 
 const DetailScreen = () => {
   const { addPokemon, team } = useAppStore();
@@ -131,7 +132,7 @@ const DetailScreen = () => {
                 )}
               </XStack>
 
-              <Separator className="cd-mt-[8]" />
+              <SeparatorCustom classes="cd-mt-[8]" />
 
               <YStack gap="$1">
                 <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-300 cd-font-semibold">
@@ -147,7 +148,7 @@ const DetailScreen = () => {
                 ))}
               </YStack>
 
-              <Separator className="cd-mt-[8]" />
+              <SeparatorCustom classes="cd-mt-[8]" />
 
               <YStack gap="$1">
                 <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-300 cd-font-semibold">
@@ -163,7 +164,7 @@ const DetailScreen = () => {
                 ))}
               </YStack>
 
-              <Separator className="cd-mt-[8]" />
+              <SeparatorCustom classes="cd-mt-[8]" />
 
               <YStack gap="$1">
                 <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-300 cd-font-semibold">
@@ -193,7 +194,6 @@ const DetailScreen = () => {
           </GradientList>
           <FloatingButtons key="floating-budget">
             <ActionIcon
-              color="primary"
               disabled={team.some((p) => p.id === data?.id)}
               icon={<Plus color="white" size={22} />}
               onPress={() => {

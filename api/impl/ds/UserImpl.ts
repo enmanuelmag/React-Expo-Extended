@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import 'react-native-get-random-values';
 import auth from '@react-native-firebase/auth';
 import * as SecureStore from 'expo-secure-store';
@@ -14,12 +15,11 @@ type FirebaseError = ReactNativeFirebase.NativeFirebaseError;
 import type { UserType } from '@customTypes/user';
 
 import UserDS from '@api/domain/ds/UserDS';
+import EnvConfig from '@config/env';
 
 import { Logger } from '@utils/log';
 import { ErrorCodes, ErrorService } from '@utils/errors';
 
-import { router } from 'expo-router';
-import { Routes } from '@constants/routes';
 import {
   AUTH_METHOD_KEY,
   AUTH_METHODS,
@@ -30,10 +30,11 @@ import {
   SECRET_PASSWORD,
   CHECK_BIOMETRIC,
 } from '@constants/datasource';
+import { Routes } from '@constants/routes';
 
 const ConfigCredentials = {
   firebaseProviders: {
-    webClientId: '372845332658-4gqaf5ro15da2lg946d7ojgavaa6do4h.apps.googleusercontent.com', //process.env.EXPO_PUBLIC_ANDROID_FIREBASE_CLIENT_ID,
+    webClientId: EnvConfig.EXPO_PUBLIC_WEB_CLIENT_ID, // '372845332658-4gqaf5ro15da2lg946d7ojgavaa6do4h.apps.googleusercontent.com', //process.env.EXPO_PUBLIC_ANDROID_FIREBASE_CLIENT_ID,
   },
 };
 

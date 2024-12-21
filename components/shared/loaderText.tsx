@@ -1,6 +1,6 @@
 import { useColorScheme } from 'nativewind';
-import { Spinner, View } from 'tamagui';
-import Text from './textDeprecated';
+import { Spinner, Text, View, XStack } from 'tamagui';
+import { $ } from '@utils/styles';
 
 type LoaderProps = {
   color?: string;
@@ -13,12 +13,15 @@ const LoaderText = ({ classes, size, text }: LoaderProps) => {
   const { colorScheme } = useColorScheme();
 
   return (
-    <View className={classes}>
-      <Spinner color={colorScheme === 'light' ? '$blue11' : '$blue11Dark'} size={size ?? 'small'} />
-      <Text classes="cd-text-lg cd-text-center" intensity={600}>
-        {text}
-      </Text>
-    </View>
+    <XStack justifyContent="center">
+      <View className={$('cd-w-full cd-flex cd-flex-col cd-justify-center', classes)}>
+        <Spinner
+          color={colorScheme === 'light' ? '$blue11' : '$blue11Dark'}
+          size={size ?? 'small'}
+        />
+        <Text className="cd-mt-[8] cd-text-base cd-text-center">{text}</Text>
+      </View>
+    </XStack>
   );
 };
 

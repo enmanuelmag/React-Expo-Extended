@@ -39,12 +39,14 @@ type TabScreenParams = {
   title: string;
   headerTitle?: React.ReactElement;
   Icon: React.FC<{ color: string; size: number }>;
+  sizeIcon?: number;
 };
 
 export const useTabsScreenOptions = (params: TabScreenParams): ScreenProps['options'] => {
-  const { title, Icon, headerTitle } = params;
+  const { title, Icon, sizeIcon, headerTitle } = params;
 
   const { colorScheme } = useColorScheme();
+
   const colorBg = getBgColor(colorScheme);
 
   return {
@@ -57,6 +59,6 @@ export const useTabsScreenOptions = (params: TabScreenParams): ScreenProps['opti
     headerStyle: { backgroundColor: colorBg },
     contentStyle: { backgroundColor: colorBg },
     headerTitle: () => headerTitle,
-    tabBarIcon: ({ color }: { color: string }) => <Icon color={color} size={26} />,
+    tabBarIcon: ({ color }: { color: string }) => <Icon color={color} size={sizeIcon ?? 24} />,
   };
 };

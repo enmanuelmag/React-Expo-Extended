@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as Application from 'expo-application';
 
 type ResultAppStore = {
@@ -7,7 +8,7 @@ type ResultAppStore = {
 };
 
 export const checkUpdateAvailable = async () => {
-  const storeInfoURL = 'http://itunes.apple.com/lookup?bundleId=budgetfy.cardor';
+  const storeInfoURL = 'http://itunes.apple.com/lookup?bundleId=dev.cardor.enmanuelmag.songfy';
 
   try {
     const response = await fetch(storeInfoURL, {

@@ -14,7 +14,7 @@ const Logo = (props: LogoProps) => {
   return (
     <Text className={$('cd-font-bold cd-text-xl dark:cd-text-white', classes)}>
       {normal}
-      <Text className="cd-text-primary dark:cd-text-primary-dark cd-font-bold">{colored}</Text>
+      <Text className="cd-text-app dark:cd-text-app-dark cd-font-bold">{colored}</Text>
     </Text>
   );
 };

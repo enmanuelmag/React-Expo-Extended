@@ -7,10 +7,13 @@ import { StyleSheet, VirtualizedList as NativeVirtualizedList } from 'react-nati
 import { getScrollGradient } from '@utils/platform';
 import { $ } from '@utils/styles';
 import { useColorScheme } from 'nativewind';
+import LoaderText from './loaderText';
 
 type VirtualizedListProps<T> = {
   items: T[];
   classes?: string;
+  loading?: boolean;
+  loadingText?: string;
   bottomGradientClass?: string;
   initialNumToRender?: number;
   renderItem: (props: { item: T; index: number }) => React.ReactElement;
@@ -22,7 +25,7 @@ type GradientType = {
 };
 
 const VirtualizedList = <T extends unknown>(props: VirtualizedListProps<T>) => {
-  const { items, initialNumToRender = 3, renderItem, classes } = props;
+  const { items, loading, loadingText, initialNumToRender = 3, renderItem, classes } = props;
 
   const { colorScheme } = useColorScheme();
 
@@ -30,6 +33,14 @@ const VirtualizedList = <T extends unknown>(props: VirtualizedListProps<T>) => {
     top: false,
     bottom: false,
   });
+
+  if (loading) {
+    return (
+      <View className={$('cd-flex cd-items-center cd-justify-center cd-h-full', classes)}>
+        <LoaderText text={loadingText || 'Loading'} />
+      </View>
+    );
+  }
 
   return (
     <React.Fragment>
@@ -40,7 +51,7 @@ const VirtualizedList = <T extends unknown>(props: VirtualizedListProps<T>) => {
           getItem={(data, index) => data[index]}
           getItemCount={(data) => data.length}
           initialNumToRender={initialNumToRender}
-          keyExtractor={(_, idx) => `schedule-${idx}`}
+          keyExtractor={(_, idx) => `item-${idx}`}
           renderItem={({ item, index }) => (
             <View
               className={$(index === items.length - 1 ? 'cd-mb-[256]' : 'cd-mb-[8]')}

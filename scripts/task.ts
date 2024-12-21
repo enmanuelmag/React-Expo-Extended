@@ -64,6 +64,7 @@ async function main() {
       if (options.platform === 'all' || options.platform === 'ios') {
         taskOutputs.push(
           chalk.green.bgCyan.bold('[LOG]') + ' Building iOS version: ' + AppConfig.version,
+          chalk.green.bgCyan.bold('[LOG]') + chalk.dim(`└── Command: ${commandBuild.ios}`),
         );
         await runCommand('Build iOS', commandBuild.ios, taskOutputs);
       }
@@ -71,6 +72,7 @@ async function main() {
       if (options.platform === 'all' || options.platform === 'android') {
         taskOutputs.push(
           chalk.green.bgCyan.bold('[LOG]') + ' Building Android version: ' + AppConfig.version,
+          chalk.green.bgCyan.bold('[LOG]') + chalk.dim(`└── Command: ${commandBuild.android}`),
         );
         await runCommand('Build Android', commandBuild.android, taskOutputs);
       }
@@ -81,7 +83,8 @@ async function main() {
     if (options.submit) {
       if (options.platform === 'all' || options.platform === 'ios') {
         taskOutputs.push(
-          chalk.green.bgCyan.bold('[LOG]') + ' Submitting version for iOS: ' + AppConfig.version,
+          chalk.green.bgCyan.bold('[LOG]') + ` Submitting version for iOS: ${AppConfig.version}`,
+          chalk.green.bgCyan.bold('[LOG]') + chalk.dim(`└── Command: ${commandSubmit.ios}`),
         );
         await runCommand('Submit iOS', commandSubmit.ios, taskOutputs);
       }
@@ -89,8 +92,8 @@ async function main() {
       if (options.platform === 'all' || options.platform === 'android') {
         taskOutputs.push(
           chalk.green.bgCyan.bold('[LOG]') +
-            ' Submitting version for Android: ' +
-            AppConfig.version,
+            ` Submitting version for Android: ${AppConfig.version}}`,
+          chalk.green.bgCyan.bold('[LOG]') + chalk.dim(`└── Command: ${commandSubmit.android}`),
         );
         await runCommand('Submit Android', commandSubmit.android, taskOutputs);
       }
@@ -98,8 +101,8 @@ async function main() {
       if (options.message) {
         taskOutputs.push(
           chalk.green.bgCyan.bold('[LOG]') +
-            ' Publishing EAS Updates for version: ' +
-            AppConfig.version,
+            ` Publishing EAS Updates for version: ${AppConfig.version}`,
+          chalk.green.bgCyan.bold('[LOG]') + chalk.dim(`└── Command: ${cmdEASUpdate}`),
         );
 
         await runCommand('Publish EAS Update', cmdEASUpdate, taskOutputs);

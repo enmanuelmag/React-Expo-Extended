@@ -13,7 +13,7 @@ export default function Page() {
   if (user) {
     return (
       <YStack justifyContent="center">
-        <Redirect href={tabSelected ?? Routes.POKEDEX} />
+        <Redirect href={tabSelected ?? Routes.SEARCH} />
       </YStack>
     );
   }

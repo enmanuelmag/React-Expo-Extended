@@ -45,7 +45,7 @@ const Settings = () => {
       <YStack gap="$3" justifyContent="flex-end">
         <ButtonCustom
           color="red"
-          iconLeft={<LogOut color="white" size="$1" />}
+          iconLeft={<LogOut size="$1" />}
           text="Logout"
           variant="outline"
           onPress={() => {

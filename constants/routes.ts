@@ -3,8 +3,8 @@ export const Routes = {
   LOGIN: '/login',
   REGISTER: '/register',
   // Private
-  POKEDEX: '/pokedex',
+  SEARCH: '/search',
   SETTINGS: '/settings',
-  TEAM: '/team',
-  DETAIL: '/detail/:id',
-};
+} as const;
+
+export type RoutesType = (typeof Routes)[keyof typeof Routes];

@@ -1,11 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { X } from '@tamagui/lucide-icons';
-import { Adapt, Button, Dialog, Separator, Sheet, Text, Unspaced, XStack } from 'tamagui';
+import { Adapt, Button, Dialog, Sheet, Text, Unspaced, XStack } from 'tamagui';
 
 import { ColorsTheme } from '@constants/Colors';
 
 import ButtonCustom from './button';
+import SeparatorCustom from './SeparatorCustom';
 
 type ConfirmEventProps = {
   title: string;
@@ -82,7 +83,7 @@ const ConfirmModal = React.forwardRef<any, ConfirmEventProps>((props: ConfirmEve
             </Text>
           </Dialog.Title>
 
-          <Separator className="cd-my-[16]" />
+          <SeparatorCustom classes="cd-my-[16]" />
 
           <Dialog.Description flex={1} flexDirection="column" gap="$0.5">
             <React.Fragment>

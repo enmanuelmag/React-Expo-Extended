@@ -2,8 +2,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-import { $ } from '@utils/styles';
-
 import { ColorsTheme } from '@constants/Colors';
 
 import ButtonCustom from './button';
@@ -29,7 +27,7 @@ const ActionIcon = React.forwardRef((props: ActionIconProps, ref) => {
     <ButtonCustom
       isActionIcon
       alignSelf={alignSelf}
-      classes={$('cd-font-[500] !cd-text-white]', classes)}
+      classes={classes}
       color={color}
       disabled={disabled}
       iconLeft={icon}

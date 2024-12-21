@@ -6,11 +6,13 @@ import type { UserType } from '@customTypes/user';
 import { PokemonDetailType } from '@customTypes/pokemon';
 import { NotificationForegroundType } from '@customTypes/notification';
 
+import { RoutesType } from '@constants/routes';
+
 type ThemeOptions = 'light' | 'dark' | string;
 
 type UserSlice = {
   //states
-  tabSelected: 'pokedex' | 'team' | 'settings';
+  tabSelected: RoutesType;
   user: UserType | null;
   theme: ThemeOptions;
   usedSystemTheme: boolean;
@@ -45,7 +47,7 @@ type TeamSliceActions = {
 const initialUserSlice: UserSlice = {
   user: null,
   theme: 'light',
-  tabSelected: 'pokedex',
+  tabSelected: '/search',
   usedSystemTheme: false,
   pushToken: null,
   popOverNotification: null,
@@ -75,7 +77,7 @@ export const useAppStore = create(
       setTeam: (team) => set({ team }),
     }),
     {
-      version: 2,
+      version: 3,
       name: 'app-store',
       storage: createJSONStorage(() => AsyncStorage),
     },

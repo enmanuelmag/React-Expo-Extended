@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs } from 'expo-router';
 
 import { useColorScheme } from 'nativewind';
-import { Settings, Users, List } from '@tamagui/lucide-icons';
+import { Settings, Search } from '@tamagui/lucide-icons';
 
 import { useTabsScreenOptions } from '@config/screens';
 
@@ -12,6 +12,8 @@ import { isAndroid } from '@utils/platform';
 import Logo from '@components/shared/logo';
 
 import { useAppStore } from '@store/index';
+import { ColorsTabs } from '@constants/Colors';
+import { RoutesType } from '@constants/routes';
 
 export default function TabLayout() {
   const { colorScheme } = useColorScheme();
@@ -20,16 +22,10 @@ export default function TabLayout() {
 
   const colorBg = getBgColor(colorScheme);
 
-  const catchTabConfig = useTabsScreenOptions({
-    title: 'Pokedex',
+  const searchTabConfig = useTabsScreenOptions({
+    title: 'Search',
     headerTitle: <Logo colored="dex" normal="Poke" />,
-    Icon: List,
-  });
-
-  const teamTabConfig = useTabsScreenOptions({
-    title: 'View Team',
-    headerTitle: <Logo colored="Team" normal="View" />,
-    Icon: Users,
+    Icon: Search,
   });
 
   const settingsTabConfig = useTabsScreenOptions({
@@ -46,14 +42,14 @@ export default function TabLayout() {
 
           const [name] = e.target.split('-');
 
-          setTabSelected(name as 'pokedex' | 'team' | 'settings');
+          setTabSelected(name as RoutesType);
         },
       }}
       screenOptions={{
         tabBarShowLabel: true,
         headerStatusBarHeight: 0,
         headerTitleAlign: 'center',
-        tabBarActiveTintColor: '#339AF0',
+        tabBarActiveTintColor: ColorsTabs[colorScheme].tint,
         tabBarStyle: {
           backgroundColor: colorBg,
           shadowColor: 'transparent',
@@ -63,8 +59,7 @@ export default function TabLayout() {
         },
       }}
     >
-      <Tabs.Screen name="pokedex" options={catchTabConfig} />
-      <Tabs.Screen name="team" options={teamTabConfig} />
+      <Tabs.Screen name="search" options={searchTabConfig} />
       <Tabs.Screen name="settings" options={settingsTabConfig} />
     </Tabs>
   );

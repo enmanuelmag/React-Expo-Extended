@@ -6,19 +6,21 @@ import { $ } from '@utils/styles';
 import { Colors } from '@constants/Colors';
 
 type ChipProps = {
+  exactColor?: boolean;
   classes?: string;
   children: React.ReactNode;
-  color: string;
+  color: keyof typeof Colors | string;
+  textColor?: string;
   iconLeft?: any;
   iconRight?: any;
   onPress?: () => void;
 };
 
 const Chip = React.forwardRef<TamaguiElement, ChipProps>((props: ChipProps, ref) => {
-  const { color, classes, children, iconRight, iconLeft, onPress } = props;
+  const { color, textColor, classes, children, iconRight, iconLeft, exactColor, onPress } = props;
   return (
     <View
-      backgroundColor={Colors[color as keyof typeof Colors][100]}
+      backgroundColor={exactColor ? color : Colors[color as keyof typeof Colors][100]}
       className={$(
         iconLeft ? 'cd-pl-[8]' : 'cd-pl-[20]',
         iconRight ? 'cd-pr-[8]' : 'cd-pr-[20]',
@@ -31,7 +33,7 @@ const Chip = React.forwardRef<TamaguiElement, ChipProps>((props: ChipProps, ref)
         {iconLeft}
         <Text
           className="cd-font-semibold cd-text-sm"
-          color={Colors[color as keyof typeof Colors][900]}
+          color={textColor ?? Colors[color as keyof typeof Colors][900]}
           onPress={onPress}
         >
           {children}

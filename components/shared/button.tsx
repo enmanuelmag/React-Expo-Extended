@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { useColorScheme } from 'nativewind';
-import { Button, Circle, View } from 'tamagui';
+import { Button, Circle } from 'tamagui';
 
 import { UI } from '@constants/app';
 import { ColorsTheme } from '@constants/Colors';
@@ -40,7 +40,7 @@ const ButtonCustom = React.forwardRef<any, ButtonCustomProps>((props: ButtonCust
     alignSelf,
     disabled,
     text,
-    variant = 'primary',
+    variant = 'filled',
     isActionIcon,
     iconLeft,
     iconRight,
@@ -55,7 +55,7 @@ const ButtonCustom = React.forwardRef<any, ButtonCustomProps>((props: ButtonCust
 
   const { colorScheme } = useColorScheme();
 
-  const buttonColors = useThemeColor(c ?? 'primary');
+  const buttonColors = useThemeColor(c ?? 'app');
 
   const colorsStyles = getColorsStyles();
 
@@ -72,7 +72,9 @@ const ButtonCustom = React.forwardRef<any, ButtonCustomProps>((props: ButtonCust
         {loading ? (
           <Loader color={variant === 'filled' || variant === 'default' ? 'white' : undefined} />
         ) : (
-          iconLeft
+          React.cloneElement(iconLeft, {
+            color: buttonColors.text.split('-')[2],
+          })
         )}
       </Circle>
     );
@@ -80,14 +82,18 @@ const ButtonCustom = React.forwardRef<any, ButtonCustomProps>((props: ButtonCust
 
   if (onlyIcon) {
     return (
-      <View
+      <Button
         alignSelf={alignSelf}
-        className={$('cd-py-[8] cd-my-[4] cd-px-[4]', classes)}
+        className={$(colorsStyles, 'cd-py-[0] cd-my-[0] cd-px-[0]', classes)}
+        disabled={disabled}
+        height="auto"
+        icon={loading ? <Loader /> : iconLeft || iconRight}
+        margin={0}
+        padding={0}
         ref={ref}
+        size={UI.Size}
         onPress={disabled ? undefined : onPress}
-      >
-        {iconLeft || iconRight}
-      </View>
+      />
     );
   }
 
@@ -109,26 +115,28 @@ const ButtonCustom = React.forwardRef<any, ButtonCustomProps>((props: ButtonCust
   function getColorsStyles() {
     const styles: string[] = ['cd-font-[500]'];
 
+    if (disabled) {
+      styles.push(colorScheme === 'light' ? disabledStyles : disabledDarkStyles);
+
+      return styles.join(' ');
+    }
+
     if (variant === 'default' || variant === 'filled') {
       styles.push(buttonColors.bg, buttonColors.text);
     } else if (variant === 'outline') {
-      styles.push(buttonColors.border, buttonColors.text);
+      styles.push(buttonColors.border, buttonColors.textColored, 'cd-bg-transparent');
     } else if (variant === 'transparent') {
-      styles.push(buttonColors.text);
+      styles.push(buttonColors.text, 'cd-bg-transparent', 'cd-border-transparent');
     } else if (variant === 'icon') {
       if (onlyIcon) {
-        styles.push(buttonColors.text);
+        styles.push(buttonColors.textColored, 'cd-bg-transparent');
       } else {
         styles.push(buttonColors.bg, buttonColors.text);
       }
-      //styles.push('!cd-bg-transparent !cd-text-primary !cd-p-0 !cd-m-0 !cd-text-gray-800');
+      //styles.push('!cd-bg-transparent !cd-text-app !cd-p-0 !cd-m-0 !cd-text-gray-800');
       styles.push('!cd-p-0 !cd-m-0');
     } else {
       styles.push(buttonColors.bg, buttonColors.text);
-    }
-
-    if (disabled) {
-      styles.push(colorScheme === 'light' ? disabledStyles : disabledDarkStyles);
     }
 
     return styles.join(' ');
