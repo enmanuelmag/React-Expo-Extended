@@ -126,7 +126,7 @@ const ButtonCustom = React.forwardRef<any, ButtonCustomProps>((props: ButtonCust
     } else if (variant === 'outline') {
       styles.push(buttonColors.border, buttonColors.textColored, 'cd-bg-transparent');
     } else if (variant === 'transparent') {
-      styles.push(buttonColors.text, 'cd-bg-transparent', 'cd-border-transparent');
+      styles.push(buttonColors.textColored, 'cd-bg-transparent', 'cd-border-transparent');
     } else if (variant === 'icon') {
       if (onlyIcon) {
         styles.push(buttonColors.textColored, 'cd-bg-transparent');
