@@ -1,133 +1,136 @@
-import messaging from '@react-native-firebase/messaging';
-import { Platform, PermissionsAndroid } from 'react-native';
+// import messaging from '@react-native-firebase/messaging';
+// import { Platform, PermissionsAndroid } from 'react-native';
+// import { NotificationDataType, NotificationForegroundType } from '@customTypes/notification';
 
 import * as Burnt from 'burnt';
 import type { BaseToastOptions } from 'burnt/build/types';
-import { NotificationDataType, NotificationForegroundType } from '@customTypes/notification';
 
-import DataRepo from '@api/datasource';
+//import DataRepo from '@api/datasource';
 
 // import { router } from 'expo-router';
 // import { Routes } from '@constants/routes';
+// const getFCMToken = async () => {
+//   try {
+//     const token = await messaging().getToken();
+//     console.log('FCM Token:', token);
 
-export async function requestUserPermission() {
-  if (Platform.OS === 'ios') {
-    await messaging().requestPermission();
-    // const authStatus = await messaging().requestPermission();
-    // const enabled =
-    //   authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-    //   authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+//     //await DataRepo.userService.registerToken(token);
+//     return token;
+//   } catch (error) {
+//     console.error('Error getting FCM token:', error);
+//     return null;
+//   }
+// };
 
-    // if (enabled) {
-    //   console.log('Authorization status:', authStatus);
-    // }
-  } else {
-    await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
-  }
-}
+// async function requestUserPermission() {
+//   if (Platform.OS === 'ios') {
+//     await messaging().requestPermission();
+//     // const authStatus = await messaging().requestPermission();
+//     // const enabled =
+//     //   authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+//     //   authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-type SetupNotificationsParams = {
-  setPopOverNotification: (popover: NotificationForegroundType) => void;
-  setPushToken: (token: string | null) => void;
-};
+//     // if (enabled) {
+//     //   console.log('Authorization status:', authStatus);
+//     // }
+//   } else {
+//     await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+//   }
+// }
 
-export const setupNotifications = (params: SetupNotificationsParams) => {
-  try {
-    const { setPopOverNotification } = params;
-    // Foreground message handler
-    const messageUnsubscribe = messaging().onMessage(async (remoteMessage) => {
-      console.log('Foreground Message:', remoteMessage);
-      setPopOverNotification({
-        title: remoteMessage.notification?.title ?? 'New Pokemon found!',
-        body: remoteMessage.notification?.body ?? 'Let see it',
-        data: remoteMessage.data as NotificationDataType,
-      });
-    });
+// type SetupNotificationsParams = {
+//   setPopOverNotification: (popover: NotificationForegroundType) => void;
+//   //make that setPushToken save token on zustand and call registerToken of userService
+//   setPushToken: (token: string | null) => void;
+// };
 
-    // Background message handler
-    messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-      console.log('Background Message:', remoteMessage);
-      // const { pokemonId } = remoteMessage.data as NotificationDataType;
+// export const setupNotifications = (params: SetupNotificationsParams) => {
+//   try {
+//     const { setPopOverNotification, setPushToken } = params;
+//     // Foreground message handler
+//     const messageUnsubscribe = messaging().onMessage(async (remoteMessage) => {
+//       console.log('Foreground Message:', remoteMessage);
+//       setPopOverNotification({
+//         title: remoteMessage.notification?.title ?? 'New Pokemon found!',
+//         body: remoteMessage.notification?.body ?? 'Let see it',
+//         data: remoteMessage.data as NotificationDataType,
+//       });
+//     });
 
-      // router.push(Routes.DETAIL.replace(':id', pokemonId));
-    });
+//     // Background message handler
+//     messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+//       console.log('Background Message:', remoteMessage);
+//       // const { pokemonId } = remoteMessage.data as NotificationDataType;
 
-    // Handle notification open when app is in background/quit
-    const notificationUnsubscribe = messaging().onNotificationOpenedApp((remoteMessage) => {
-      console.log('Notification opened:', remoteMessage);
-      // const { pokemonId } = remoteMessage.data as NotificationDataType;
+//       // router.push(Routes.DETAIL.replace(':id', pokemonId));
+//     });
 
-      // router.push(Routes.DETAIL.replace(':id', pokemonId));
-    });
+//     // Handle notification open when app is in background/quit
+//     const notificationUnsubscribe = messaging().onNotificationOpenedApp((remoteMessage) => {
+//       console.log('Notification opened:', remoteMessage);
+//       // const { pokemonId } = remoteMessage.data as NotificationDataType;
 
-    // Check if app was opened from a notification when app was quit
-    messaging()
-      .getInitialNotification()
-      .then((remoteMessage) => {
-        if (remoteMessage) {
-          console.log('Notification when app if quit:', remoteMessage);
-        }
-      });
+//       // router.push(Routes.DETAIL.replace(':id', pokemonId));
+//     });
 
-    // Request permissions (will be handled by the native module)
-    requestUserPermission();
+//     // Check if app was opened from a notification when app was quit
+//     messaging()
+//       .getInitialNotification()
+//       .then((remoteMessage) => {
+//         if (remoteMessage) {
+//           console.log('Notification when app if quit:', remoteMessage);
+//         }
+//       });
 
-    //getFCMToken().then(setPushToken);
+//     // Request permissions (will be handled by the native module)
+//     requestUserPermission();
 
-    // Return cleanup function
-    return () => {
-      messageUnsubscribe();
-      notificationUnsubscribe();
-    };
-  } catch (error) {
-    console.error('Error setting up notifications:', error);
-    return () => {}; // Return empty cleanup function if setup fails
-  }
-};
+//     getFCMToken().then(setPushToken);
 
-export const getFCMToken = async () => {
-  try {
-    const token = await messaging().getToken();
-    console.log('FCM Token:', token);
+//     // Return cleanup function
+//     return () => {
+//       messageUnsubscribe();
+//       notificationUnsubscribe();
+//     };
+//   } catch (error) {
+//     console.error('Error setting up notifications:', error);
+//     return () => {}; // Return empty cleanup function if setup fails
+//   }
+// };
 
-    await DataRepo.userService.registerToken(token);
-    return token;
-  } catch (error) {
-    console.error('Error getting FCM token:', error);
-    return null;
-  }
-};
+// type RegisterFCMTokenParams = {
+//   unRegisterToken: () => void;
+// };
+// export const unregisterFCMToken = async (params: RegisterFCMTokenParams) => {
+//   try {
+//     await messaging().deleteToken();
+//     params.unRegisterToken();
+//     //await DataRepo.userService.unregisterToken();
+//     console.log('FCM Token deleted successfully');
+//   } catch (error) {
+//     console.error('Error deleting FCM token:', error);
+//   }
+// };
 
-export const unregisterFCMToken = async () => {
-  try {
-    await messaging().deleteToken();
-    console.log('FCM Token deleted successfully');
+// type SendPushNotificationParams = {
+//   data: NotificationDataType & { title: string; description: string };
+//   pushToken: string;
+// };
 
-    await DataRepo.userService.unregisterToken();
-  } catch (error) {
-    console.error('Error deleting FCM token:', error);
-  }
-};
-
-type SendPushNotificationParams = {
-  data: NotificationDataType & { title: string; description: string };
-  pushToken: string;
-};
-
-export const sendPushNotification = async (params: SendPushNotificationParams) => {
-  try {
-    console.log('Sending push notification:', params);
-    const { data, pushToken } = params;
-    await messaging().sendMessage({
-      fcmOptions: {},
-      to: pushToken,
-      data,
-    });
-    console.log('Push notification sent successfully');
-  } catch (error) {
-    console.error('Error sending push notification:', error);
-  }
-};
+// export const sendPushNotification = async (params: SendPushNotificationParams) => {
+//   try {
+//     console.log('Sending push notification:', params);
+//     const { data, pushToken } = params;
+//     await messaging().sendMessage({
+//       fcmOptions: {},
+//       to: pushToken,
+//       data,
+//     });
+//     console.log('Push notification sent successfully');
+//   } catch (error) {
+//     console.error('Error sending push notification:', error);
+//   }
+// };
 
 export const toast = (params: BaseToastOptions) => {
   let haptic: BaseToastOptions['haptic'];

@@ -45,14 +45,14 @@ const config: ExpoConfig = {
           'Allow Budgetfy to access your photos to attach images to debtor payments',
       },
     ],
-    // [
-    //   'expo-notifications',
-    //   {
-    //     color: '#FFFFFF',
-    //     icon: './assets/images/icon.png',
-    //     defaultChannel: 'default',
-    //   },
-    // ],
+    [
+      'expo-notifications',
+      {
+        color: '#FFFFFF',
+        icon: './assets/images/icon.png',
+        defaultChannel: 'default',
+      },
+    ],
   ],
   splash: {
     image: './assets/images/splash.png',
