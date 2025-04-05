@@ -1,5 +1,5 @@
 {
-  "name": "songfy",
+  "name": "app-name",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
@@ -12,24 +12,25 @@
     "lint": "expo lint",
     "prepare": "husky",
     "clean:prebuild": "expo prebuild --clean",
-    "clean:prebuild:ios": "expo prebuild --clean --platform ios",
-    "clean:prebuild:android": "expo prebuild --clean --platform android",
     "build:android:debug": "eas build --platform android --profile debug",
-    "build:android:local": "eas build --platform android --profile production --local --output ./build/formapp-$(date +'%Y-%m-%d-%H-%M-%S').aab --non-interactive",
+    "build:android:local": "eas build --platform android --profile production --local --output ./build/app-name-$(date +'%Y-%m-%d-%H-%M-%S').aab --non-interactive",
     "build:android:production": "eas build --platform android --profile production --auto-submit",
-    "build:ios:local": "eas build --platform ios --local --profile production --output ./build/formapp-$(date +'%Y-%m-%d-%H-%M-%S').ipa --non-interactive",
+    "build:ios:local": "eas build --platform ios --local --profile production --output ./build/app-name-$(date +'%Y-%m-%d-%H-%M-%S').ipa --non-interactive",
     "build:ios:local:interactive": "eas build --platform ios --local --profile production",
     "build:ios:production": "eas build --platform ios --profile production --auto-submit",
     "submit:ios": "eas submit -p ios --profile production",
     "submit:android": "eas submit -p android --profile production",
     "build:all:local": "npm run build:android:local && npm run build:ios:local",
-    "task:all:local": "ts-node ./scripts/task.ts -p all --output build --profile production --submit --local",
-    "task:all:local:submit": "ts-node ./scripts/task.ts -p all --profile production --submit",
-    "task:all:remote": "ts-node ./scripts/task.ts -p all --output build --profile production --submit",
-    "task:android:local": "ts-node ./scripts/task.ts -p android --output build --profile production --submit --local",
-    "task:android:remote": "ts-node ./scripts/task.ts -p android --output build --profile production --submit",
-    "task:ios:local": "ts-node ./scripts/task.ts -p ios --output build --profile production --submit --local",
-    "task:ios:remote": "ts-node ./scripts/task.ts -p ios --output build --profile production --submit"
+    "task:all:local": "tsx ./scripts/task.ts -p all --output build --profile production --submit --local",
+    "task:all:local:submit": "tsx ./scripts/task.ts -p all --profile production --submit",
+    "task:all:remote": "tsx ./scripts/task.ts -p all --output build --profile production --submit",
+    "task:android:local": "tsx ./scripts/task.ts -p android --output build --profile production --submit --local",
+    "task:android:remote": "tsx ./scripts/task.ts -p android --output build --profile production --submit",
+    "task:ios:local": "tsx ./scripts/task.ts -p ios --output build --profile production --submit --local",
+    "task:ios:remote": "tsx ./scripts/task.ts -p ios --output build --profile production --submit",
+    "clean:prebuild:ios": "expo prebuild --platform ios --clean",
+    "clean:prebuild:android": "expo prebuild --platform android --clean",
+    "clean:prebuild:all": "expo prebuild --clean"
   },
   "jest": {
     "preset": "jest-expo"
@@ -124,6 +125,7 @@
     "react-test-renderer": "18.2.0",
     "tailwindcss": "^3.3.2",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "~5.3.3"
   },
   "private": true

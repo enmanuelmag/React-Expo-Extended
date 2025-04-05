@@ -7,6 +7,8 @@ import { spawn, execSync } from 'child_process';
 import AppConfig from '../app.config';
 import { BuildOptions } from './task';
 
+import { name as AppName } from '../package.json';
+
 export const executeTask = async (task: string, action: () => any | Promise<any>) => {
   console.log(chalk.green.bgCyan.bold('[LOG]') + ' Executing task:', task);
 
@@ -23,9 +25,9 @@ export const getBuildCommands = (params: BuildOptions) => {
       throw new Error('No versions found');
     }
 
-    const dirOutputAndroid = path.join(output, `FormApp-${latestVersion}-${profile}.aab`);
+    const dirOutputAndroid = path.join(output, `${AppName}-${latestVersion}-${profile}.aab`);
 
-    const dirOutputIos = path.join(output, `FormApp-${latestVersion}-${profile}.ipa`);
+    const dirOutputIos = path.join(output, `${AppName}-${latestVersion}-${profile}.ipa`);
 
     fs.accessSync(dirOutputAndroid, fs.constants.F_OK);
 
@@ -40,9 +42,9 @@ export const getBuildCommands = (params: BuildOptions) => {
       dirOutputIos: ['all', 'ios'].includes(platform) ? dirOutputIos : '',
     };
   } else if (binaryVersion) {
-    const dirOutputAndroid = path.join(output, `FormApp-${binaryVersion}-${profile}.aab`);
+    const dirOutputAndroid = path.join(output, `${AppName}-${binaryVersion}-${profile}.aab`);
 
-    const dirOutputIos = path.join(output, `FormApp-${binaryVersion}-${profile}.ipa`);
+    const dirOutputIos = path.join(output, `${AppName}-${binaryVersion}-${profile}.ipa`);
 
     fs.accessSync(dirOutputAndroid, fs.constants.F_OK);
 
@@ -58,9 +60,9 @@ export const getBuildCommands = (params: BuildOptions) => {
     };
   }
 
-  const dirOutputAndroid = path.join(output, `FormApp-${AppConfig.version}-${profile}.aab`);
+  const dirOutputAndroid = path.join(output, `${AppName}-${AppConfig.version}-${profile}.aab`);
 
-  const dirOutputIos = path.join(output, `FormApp-${AppConfig.version}-${profile}.ipa`);
+  const dirOutputIos = path.join(output, `${AppName}-${AppConfig.version}-${profile}.ipa`);
 
   const commandBuild = {
     android: '',
@@ -94,18 +96,18 @@ export const getBuildCommands = (params: BuildOptions) => {
 };
 
 export const getSubmitCommands = (dirAndroid: string, dirIOS: string, params: BuildOptions) => {
-  const { local, platform, profile, submit } = params;
+  const { local, platform, submit } = params; //profile
 
   const commandSubmit = {
     android: '',
     ios: '',
   };
 
-  const cmdSubmitAndroid = `eas submit --platform android --profile ${profile} ${
+  const cmdSubmitAndroid = `eas submit --platform android --profile closed ${
     local ? `--path ${dirAndroid}` : '--latest'
   } --non-interactive`;
 
-  const cmdSubmitIOS = `eas submit --platform ios --profile ${profile} ${
+  const cmdSubmitIOS = `eas submit --platform ios --profile closed ${
     local ? `--path ${dirIOS}` : '--latest'
   } --non-interactive`;
 
@@ -183,14 +185,16 @@ export function runCommand(name: string, command: string, taskOutputs: string[],
     child.on('close', (code) => {
       if (code !== 0) {
         console.log(
-          chalk(chalk.red.bgRed.bold('[ERROR]') + chalk.dim(`└── Task failed with code: ${code}`)),
+          chalk(chalk.red.bgRed.bold('[ERROR]') + chalk.dim(` └── Task failed with code: ${code}`)),
         );
         return reject(code);
       }
 
       console.clear();
       taskOutputs.push(
-        chalk(chalk.green.bgCyan.bold('[LOG]') + chalk.dim(`└── Task completed with code: ${code}`)),
+        chalk(
+          chalk.green.bgCyan.bold('[LOG]') + chalk.dim(` └── Task completed with code: ${code}`),
+        ),
       );
       console.log(taskOutputs.join('\n'));
       resolve(code);
