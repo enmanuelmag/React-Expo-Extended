@@ -8,14 +8,13 @@ import { useStackScreenOptions } from '@config/screens';
 
 import { getBgColor } from '@utils/styles';
 import { isAndroid } from '@utils/platform';
-import { setupNotifications } from '@utils/notification';
 import ConfirmModal from '@components/shared/confirmModal';
 import { useAppStore } from '@store/index';
 import { Routes } from '@constants/routes';
 import { router } from 'expo-router';
 
 export default function Layout() {
-  const { popOverNotification, setPushToken, setPopOverNotification } = useAppStore();
+  const { popOverNotification, setPopOverNotification } = useAppStore();
 
   const { colorScheme } = useColorScheme();
 
@@ -24,18 +23,6 @@ export default function Layout() {
   const detailConfig = useStackScreenOptions({
     headerTitle: <Text className="cd-text-app cd-text-lg dark:cd-text-app-dark">Detail</Text>,
   });
-
-  React.useEffect(() => {
-    const unsubscribe = setupNotifications({
-      setPopOverNotification,
-      setPushToken,
-    });
-
-    return () => {
-      unsubscribe();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <React.Fragment>
