@@ -11,7 +11,7 @@ import { useAppStore } from '@store/index';
 
 import Logo from '@components/shared/logo';
 import ButtonCustom from '@components/shared/button';
-import SwitchWithLabel from '@components/shared/switchCustom';
+import SwitchWithLabel from '@components/shared/switch-custom';
 import { Routes } from '@constants/routes';
 
 const Settings = () => {

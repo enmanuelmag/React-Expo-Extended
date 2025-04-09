@@ -1,7 +1,7 @@
-import DataRepo from '@api/domain/repo/DataRepo';
+import DataRepo from '@api/domain/repo/Data-Repo';
 
-import PokeDS from '@api/domain/ds/PokeDS';
-import UserDS from '@api/domain/ds/UserDS';
+import PokeDS from '@api/domain/ds/Poke-DS';
+import UserDS from '@api/domain/ds/User-DS';
 
 type ConstructorType = {
   userService: UserDS;

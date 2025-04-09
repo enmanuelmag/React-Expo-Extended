@@ -1,7 +1,7 @@
-import PokeImpl from '@api/impl/ds/PokeImpl';
-import UserImpl from '@api/impl/ds/UserImpl';
+import PokeImpl from '@api/impl/ds/Poke-Impl';
+import UserImpl from '@api/impl/ds/User-Impl';
 
-import DataRepoImpl from '@api/impl/repo/DataRepoImpl';
+import DataRepoImpl from '@api/impl/repo/Data-Repo-Impl';
 
 const pokeDS = new PokeImpl();
 

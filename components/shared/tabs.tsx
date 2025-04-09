@@ -7,8 +7,8 @@ import type { StackProps, TabLayout, TabsTabProps } from 'tamagui';
 import { AnimatePresence, SizableText, Tabs, Text, View, XStack, YStack } from 'tamagui';
 
 import Loader from './loader';
-import InputText from './inputText';
-import ActionIcon from './actionIcon';
+import InputText from './input-text';
+import ActionIcon from './action-icon';
 import { Dimensions, Keyboard, StyleSheet, View as RView, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useColorScheme } from 'nativewind';

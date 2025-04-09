@@ -7,7 +7,7 @@ import { StyleSheet, VirtualizedList as NativeVirtualizedList } from 'react-nati
 import { getScrollGradient } from '@utils/platform';
 import { $ } from '@utils/styles';
 import { useColorScheme } from 'nativewind';
-import LoaderText from './loaderText';
+import LoaderText from './loader-text';
 
 type VirtualizedListProps<T> = {
   items: T[];

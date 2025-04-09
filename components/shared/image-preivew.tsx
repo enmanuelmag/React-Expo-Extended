@@ -10,7 +10,7 @@ import { Share } from '@tamagui/lucide-icons';
 //import { getMimeType } from '@utils/image';
 import { blurhash } from '@constants/image';
 
-import ActionIcon from './actionIcon';
+import ActionIcon from './action-icon';
 import Loader from './loader';
 
 type ImagePreviewProps = {

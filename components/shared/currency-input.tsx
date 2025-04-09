@@ -1,7 +1,7 @@
 import React from 'react';
 import CurrencyInput from 'react-native-currency-input';
 
-import InputText from './inputText';
+import InputText from './input-text';
 import { TextInput } from 'react-native';
 
 type CurrencyInputProps = {

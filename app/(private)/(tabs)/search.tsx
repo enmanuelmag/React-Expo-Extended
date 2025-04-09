@@ -16,8 +16,8 @@ import { parseId, parseOffset } from '@utils/pokemon';
 import { isLoadingNextPageQuery, isLoadingQuery } from '@utils/network';
 
 import BaseCard from '@components/pokemon/baseCard';
-import LoaderText from '@components/shared/loaderText';
-import FlatGradientList from '@components/shared/flatGradientList';
+import LoaderText from '@components/shared/loader-text';
+import FlatGradientList from '@components/shared/flat-gradientList';
 import { vibration } from '@utils/haptics';
 
 type PageType = {

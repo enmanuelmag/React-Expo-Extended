@@ -6,7 +6,7 @@ import { Adapt, Button, Dialog, Sheet, Text, Unspaced, XStack } from 'tamagui';
 import { ColorsTheme } from '@constants/Colors';
 
 import ButtonCustom from './button';
-import SeparatorCustom from './SeparatorCustom';
+import SeparatorCustom from './separator-custom';
 
 type ConfirmEventProps = {
   title: string;
@@ -40,7 +40,7 @@ const ConfirmModal = React.forwardRef<any, ConfirmEventProps>((props: ConfirmEve
     <Dialog modal open={open} ref={ref} onOpenChange={onOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
 
-      <Adapt platform="touch" when="sm">
+      {/* <Adapt platform="touch" when="sm">
         <Sheet dismissOnSnapToBottom modal animation="quick" snapPointsMode="fit" zIndex={200000}>
           <Sheet.Overlay animation="lazy" enterStyle={{ opacity: 0 }} exitStyle={{ opacity: 0 }} />
           <Sheet.Handle />
@@ -48,7 +48,7 @@ const ConfirmModal = React.forwardRef<any, ConfirmEventProps>((props: ConfirmEve
             <Adapt.Contents />
           </Sheet.Frame>
         </Sheet>
-      </Adapt>
+      </Adapt> */}
 
       <Dialog.Portal>
         <Dialog.Overlay

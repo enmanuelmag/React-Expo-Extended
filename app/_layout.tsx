@@ -14,11 +14,11 @@ import queryClient, { asyncStoragePersister } from '@api/datasource/query';
 
 import { useAppStore } from '@store/index';
 
-import EnvConfig from '@config/env';
-
 import { Routes } from '@constants/routes';
 
-const Provider = EnvConfig.EXPO_PUBLIC_IS_DEV ? QueryClientProvider : PersistQueryClientProvider;
+// import '../global.css';
+
+const Provider = process.env.EXPO_PUBLIC_IS_DEV ? QueryClientProvider : PersistQueryClientProvider;
 
 SplashScreen.preventAutoHideAsync();
 

@@ -22,10 +22,10 @@ import QKeys from '@constants/reactAPI';
 
 import Logo from '@components/shared/logo';
 import ButtonCustom from '@components/shared/button';
-import DismissKeyboardHOC from '@components/shared/dismissKeyboardHOC';
-import InputText from '@components/shared/inputText';
+import DismissKeyboardHOC from '@components/shared/dismiss-keyboard-HOC';
+import InputText from '@components/shared/input-text';
 import { isIOS } from '@utils/platform';
-import SeparatorCustom from '@components/shared/SeparatorCustom';
+import SeparatorCustom from '@components/shared/separator-custom';
 
 const Register = () => {
   const queryClient = useQueryClient();
@@ -119,7 +119,7 @@ const Register = () => {
     <DismissKeyboardHOC>
       <View className="cd-h-full cd-flex cd-justify-center cd-flex-col">
         <YStack gap="$4" padding="$6">
-          <Logo classes="cd-text-4xl cd-mb-[12]" colored="fy" normal="Song" />
+          <Logo classes="cd-text-4xl cd-mb-[12]" colored="fy" normal="Trip" />
 
           <Controller
             control={registerEmailForm.control}

@@ -21,14 +21,14 @@ import { ErrorService } from '@utils/errors';
 import { isLoadingRefetchQuery } from '@utils/network';
 
 import Logo from '@components/shared/logo';
-import LoaderText from '@components/shared/loaderText';
-import ActionIcon from '@components/shared/actionIcon';
-import ConfirmModal from '@components/shared/confirmModal';
-import GradientList from '@components/shared/gradientList';
-import PageViewerCustom from '@components/shared/pageViewer';
-import FloatingButtons from '@components/shared/floatingButtons';
-import DismissKeyboardHOC from '@components/shared/dismissKeyboardHOC';
-import SeparatorCustom from '@components/shared/SeparatorCustom';
+import LoaderText from '@components/shared/loader-text';
+import ActionIcon from '@components/shared/action-icon';
+import ConfirmModal from '@components/shared/confirm-modal.old';
+import GradientList from '@components/shared/gradient-list';
+import PageViewerCustom from '@components/shared/page-viewer';
+import FloatingButtons from '@components/shared/floating-buttons';
+import DismissKeyboardHOC from '@components/shared/dismiss-keyboard-HOC';
+import SeparatorCustom from '@components/shared/separator-custom';
 
 const DetailScreen = () => {
   const { addPokemon, team } = useAppStore();

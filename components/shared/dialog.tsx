@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { AlertDialog as AlertTama, Text, YStack } from 'tamagui';
-import SeparatorCustom from './SeparatorCustom';
+import SeparatorCustom from './separator-custom';
 import { $ } from '@utils/styles';
 
 type AlertTamaProps = {

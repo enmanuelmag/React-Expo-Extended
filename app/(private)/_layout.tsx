@@ -8,7 +8,7 @@ import { useStackScreenOptions } from '@config/screens';
 
 import { getBgColor } from '@utils/styles';
 import { isAndroid } from '@utils/platform';
-import ConfirmModal from '@components/shared/confirmModal';
+import ConfirmModal from '@components/shared/confirm-modal';
 import { useAppStore } from '@store/index';
 import { Routes } from '@constants/routes';
 import { router } from 'expo-router';

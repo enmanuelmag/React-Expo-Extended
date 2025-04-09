@@ -26,10 +26,10 @@ import { isIOS } from '@utils/platform';
 import { ErrorCodes, ErrorService } from '@utils/errors';
 
 import Logo from '@components/shared/logo';
-import InputText from '@components/shared/inputText';
+import InputText from '@components/shared/input-text';
 import ButtonCustom from '@components/shared/button';
-import DismissKeyboardHOC from '@components/shared/dismissKeyboardHOC';
-import SeparatorCustom from '@components/shared/SeparatorCustom';
+import DismissKeyboardHOC from '@components/shared/dismiss-keyboard-HOC';
+import SeparatorCustom from '@components/shared/separator-custom';
 
 const Login = () => {
   const queryClient = useQueryClient();
@@ -66,7 +66,6 @@ const Login = () => {
   });
 
   const loginMutation = useMutation<UserType, ErrorService, LoginType>({
-    mutationKey: [QKeys.LOGIN_KEY],
     mutationFn: async (data) => {
       const response = await DataRepo.userService.signinWithEmailAndPassword(
         data.email,
@@ -91,8 +90,7 @@ const Login = () => {
   });
 
   const loginGoogleMutation = useMutation<UserType, ErrorService>({
-    retry: 1,
-    mutationKey: [QKeys.LOGIN_GOOGLE_KEY],
+    retry: false,
     mutationFn: async () => {
       const response = await DataRepo.userService.signinWithGoogle();
       queryClient.clear();
@@ -114,7 +112,6 @@ const Login = () => {
   });
 
   const loginIdTokenMutation = useMutation<UserType, ErrorService>({
-    mutationKey: [QKeys.LOGIN_ID_TOKEN_KEY],
     mutationFn: async () => {
       const response = await DataRepo.userService.signInWithLocalAuth();
       queryClient.clear();
@@ -151,7 +148,7 @@ const Login = () => {
   });
 
   const loginAppleMutation = useMutation<UserType | null, ErrorService>({
-    retry: 1,
+    retry: false,
     mutationKey: [QKeys.LOGIN_APPLE_KEY],
     mutationFn: async () => {
       const response = await DataRepo.userService.signinWithApple();
@@ -186,7 +183,7 @@ const Login = () => {
     <DismissKeyboardHOC>
       <View className="cd-h-full cd-flex cd-justify-center cd-flex-col">
         <YStack gap="$4" padding="$6">
-          <Logo classes="cd-text-4xl cd-mb-[12]" colored="fy" normal="Song" />
+          <Logo classes="cd-text-4xl cd-mb-[12]" colored="fy" normal="Trip" />
 
           <Controller
             control={loginEmailForm.control}

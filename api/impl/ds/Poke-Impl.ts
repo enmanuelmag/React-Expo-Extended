@@ -1,6 +1,6 @@
 import 'react-native-get-random-values';
 
-import PokeDS from '@api/domain/ds/PokeDS';
+import PokeDS from '@api/domain/ds/Poke-DS';
 
 import { Logger } from '@utils/log';
 import { ErrorCodes, ErrorService } from '@utils/errors';

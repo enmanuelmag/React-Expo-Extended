@@ -6,7 +6,7 @@ import { Button, Circle } from 'tamagui';
 import { UI } from '@constants/app';
 import { ColorsTheme } from '@constants/Colors';
 
-import { useThemeColor } from '@hooks/useThemeColor';
+import { getColorsFromWind, useThemeColor } from '@hooks/use-theme-color';
 
 import { $ } from '@utils/styles';
 
@@ -57,6 +57,8 @@ const ButtonCustom = React.forwardRef<any, ButtonCustomProps>((props: ButtonCust
 
   const buttonColors = useThemeColor(c ?? 'app');
 
+  const colorHex = getColorsFromWind(buttonColors.textColored);
+
   const colorsStyles = getColorsStyles();
 
   if (isActionIcon && !onlyIcon) {
@@ -101,6 +103,7 @@ const ButtonCustom = React.forwardRef<any, ButtonCustomProps>((props: ButtonCust
     <Button
       alignSelf={alignSelf}
       className={$(colorsStyles, classes)}
+      color={colorHex}
       disabled={disabled}
       icon={loading ? <Loader /> : iconLeft}
       iconAfter={iconRight}

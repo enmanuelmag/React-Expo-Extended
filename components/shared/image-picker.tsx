@@ -8,8 +8,8 @@ import { FileImage, X } from '@tamagui/lucide-icons';
 import { blurhash } from '@constants/image';
 
 import ButtonCustom, { colorsStyles } from './button';
-import ActionIcon from './actionIcon';
-import { usePickImage } from '@hooks/usePickImage';
+import ActionIcon from './action-icon';
+import { usePickImage } from '@hooks/use-pick-image';
 
 type ImagePickerProps = {
   classes?: string;

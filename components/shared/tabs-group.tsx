@@ -4,8 +4,8 @@ import type { TabLayout } from 'tamagui';
 import { SizableText, Text, ToggleGroup, View, XStack } from 'tamagui';
 
 import Loader from './loader';
-import InputText from './inputText';
-import ActionIcon from './actionIcon';
+import InputText from './input-text';
+import ActionIcon from './action-icon';
 
 export type TabType = {
   value: string;

@@ -6,7 +6,7 @@ import DatePicker from 'react-native-date-picker';
 
 import { FORMAT_TIME_DATE } from '@constants/budget';
 
-import InputText from './inputText';
+import InputText from './input-text';
 import { TextInput } from 'react-native';
 import { isIOS } from '@utils/platform';
 

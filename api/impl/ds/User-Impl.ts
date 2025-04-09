@@ -14,7 +14,7 @@ type FirebaseError = ReactNativeFirebase.NativeFirebaseError;
 
 import type { UserType } from '@customTypes/user';
 
-import UserDS from '@api/domain/ds/UserDS';
+import UserDS from '@api/domain/ds/User-DS';
 import EnvConfig from '@config/env';
 
 import { Logger } from '@utils/log';
