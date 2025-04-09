@@ -6,10 +6,12 @@ import { Text, View, YStack } from 'tamagui';
 import { FileImage, X } from '@tamagui/lucide-icons';
 
 import { blurhash } from '@constants/image';
+import { ColorsTheme } from '@constants/Colors';
 
-import ButtonCustom, { colorsStyles } from './button';
-import ActionIcon from './action-icon';
 import { usePickImage } from '@hooks/use-pick-image';
+
+import ButtonCustom from './button';
+import ActionIcon from './action-icon';
 
 type ImagePickerProps = {
   classes?: string;
@@ -17,7 +19,7 @@ type ImagePickerProps = {
   error?: string;
   value?: string | null;
   loading?: boolean;
-  color?: keyof typeof colorsStyles;
+  color?: keyof (typeof ColorsTheme)['light'];
   onChange: (value?: string | null) => void;
   onRemove: () => void;
   onPickerOpen?: () => void;
